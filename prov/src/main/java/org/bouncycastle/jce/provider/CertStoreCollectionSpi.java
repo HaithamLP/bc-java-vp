@@ -31,7 +31,7 @@ public class CertStoreCollectionSpi extends CertStoreSpi
         this.params = (CollectionCertStoreParameters)params;
     }
 
-    public Collection engineGetCertificates(
+    public Collection<Certificate> engineGetCertificates(
         CertSelector selector)
         throws CertStoreException 
     {
@@ -67,7 +67,7 @@ public class CertStoreCollectionSpi extends CertStoreSpi
     }
     
 
-    public Collection engineGetCRLs(
+    public Collection<CRL> engineGetCRLs(
         CRLSelector selector)
         throws CertStoreException 
     {

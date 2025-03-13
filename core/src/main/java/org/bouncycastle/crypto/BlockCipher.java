@@ -15,7 +15,7 @@ public interface BlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException;
 
     /**
@@ -23,7 +23,7 @@ public interface BlockCipher
      *
      * @return the name of the algorithm the cipher implements.
      */
-    public String getAlgorithmName();
+    public String getAlgorithmNameBlock();
 
     /**
      * Return the block size for this cipher (in bytes).
@@ -52,5 +52,5 @@ public interface BlockCipher
      * Reset the cipher. After resetting the cipher is in the same state
      * as it was after the last init (if there was one).
      */
-    public void reset();
+    public void resetBlock();
 }

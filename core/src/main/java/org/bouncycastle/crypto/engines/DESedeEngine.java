@@ -28,7 +28,7 @@ public class DESedeEngine
      */
     public DESedeEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity()));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity()));
     }
 
     /**
@@ -39,7 +39,7 @@ public class DESedeEngine
      * @throws IllegalArgumentException if the params argument is
      *                                  inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean encrypting,
         CipherParameters params)
     {
@@ -76,10 +76,10 @@ public class DESedeEngine
             workingKey3 = workingKey1;
         }
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "DESede";
     }
@@ -128,7 +128,7 @@ public class DESedeEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

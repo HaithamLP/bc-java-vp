@@ -411,7 +411,7 @@ public class PKIXCertPathValidatorSpi_8
                 // (n)
                 RFC3280CertPathUtilities.prepareNextCertN(certPath, index);
 
-                Set criticalExtensions = cert.getCriticalExtensionOIDs();
+                Set<String> criticalExtensions = cert.getCriticalExtensionOIDs();
                 if (criticalExtensions != null)
                 {
                     criticalExtensions = new HashSet(criticalExtensions);
@@ -475,7 +475,7 @@ public class PKIXCertPathValidatorSpi_8
         //
         // (f)
         //
-        Set criticalExtensions = cert.getCriticalExtensionOIDs();
+        Set<String> criticalExtensions = cert.getCriticalExtensionOIDs();
 
         if (criticalExtensions != null)
         {

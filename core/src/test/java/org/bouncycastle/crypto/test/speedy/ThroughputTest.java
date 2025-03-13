@@ -81,7 +81,7 @@ public class ThroughputTest
     {
         System.out.println("====");
         System.out.println(name + ": ");
-        cipher.init(true, new TweakableBlockCipherParameters(new KeyParameter(key), tweak));
+        cipher.initBlock(true, new TweakableBlockCipherParameters(new KeyParameter(key), tweak));
 
         byte[] ciphertext = new byte[key.length];
         cipher.processBlock(plaintext, 0, ciphertext, 0);
@@ -91,7 +91,7 @@ public class ThroughputTest
         System.out.println("Ciphertext : " + new String(Hex.encode(ciphertext)));
         System.out.println("  Encrypt  : " + org.bouncycastle.util.Arrays.areEqual(expected, ciphertext));
 
-        cipher.init(false, new TweakableBlockCipherParameters(new KeyParameter(key), tweak));
+        cipher.initBlock(false, new TweakableBlockCipherParameters(new KeyParameter(key), tweak));
         byte[] replain = new byte[plaintext.length];
         cipher.processBlock(ciphertext, 0, replain, 0);
 
@@ -139,9 +139,9 @@ public class ThroughputTest
         byte[] key = new byte[cipher.getBlockSize()];
         rand.nextBytes(key);
 
-        cipher.init(true, new KeyParameter(key));
+        cipher.initBlock(true, new KeyParameter(key));
         speedTestCipherForMode("encrypt", cipher, input);
-        cipher.init(false, new KeyParameter(key));
+        cipher.initBlock(false, new KeyParameter(key));
         speedTestCipherForMode("decrypt", cipher, input);
     }
 
@@ -149,7 +149,7 @@ public class ThroughputTest
         throws InterruptedException
     {
         System.out.println("======");
-        System.out.println("Testing " + cipher.getAlgorithmName() + " " + cipher.getBlockSize() * 8 + " " + mode);
+        System.out.println("Testing " + cipher.getAlgorithmNameBlock() + " " + cipher.getBlockSize() * 8 + " " + mode);
         System.out.println("Beginning warmup run.");
 
         long warmup = testCipher(cipher, input);
@@ -174,10 +174,10 @@ public class ThroughputTest
             System.out.println("Run " + (i + 1) + ": " + runtimes[i] / 100000 + "ms");
         }
         long averageRuntime = total / RUNS;
-        System.out.println(cipher.getAlgorithmName() + " Average run time: " + averageRuntime / 1000000 + "ms");
+        System.out.println(cipher.getAlgorithmNameBlock() + " Average run time: " + averageRuntime / 1000000 + "ms");
         final long mbPerSecond = (long)((double)DATA_SIZE / averageRuntime * 1000000000 / (1024 * 1024));
-        System.out.println(cipher.getAlgorithmName() + " Average speed:    " + mbPerSecond + " MB/s");
-        System.out.println(cipher.getAlgorithmName() + " Average speed:    " + CLOCK_SPEED / (double)(mbPerSecond * (1024 * 1024)) + " c/b");
+        System.out.println(cipher.getAlgorithmNameBlock() + " Average speed:    " + mbPerSecond + " MB/s");
+        System.out.println(cipher.getAlgorithmNameBlock() + " Average speed:    " + CLOCK_SPEED / (double)(mbPerSecond * (1024 * 1024)) + " c/b");
     }
 
     private static long testCipher(BlockCipher cipher, byte[] input)

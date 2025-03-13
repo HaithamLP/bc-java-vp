@@ -48,7 +48,7 @@ public class FPEFF1Engine
 
         this.fpeParameters = (FPEParameters)parameters;
 
-        baseCipher.init(!fpeParameters.isUsingInverseFunction(), fpeParameters.getKey());
+        baseCipher.initBlock(!fpeParameters.isUsingInverseFunction(), fpeParameters.getKey());
     }
 
     public String getAlgorithmName()

@@ -17,7 +17,7 @@ import org.bouncycastle.util.Pack;
 public final class TnepresEngine
     extends SerpentEngineBase
 {
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Tnepres";
     }

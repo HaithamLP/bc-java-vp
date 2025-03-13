@@ -255,7 +255,7 @@ public class CertificateFactory
      * Returns a (possibly empty) collection view of the certificates
      * read from the given input stream inStream.
      */
-    public Collection engineGenerateCertificates(
+    public Collection<java.security.cert.Certificate> engineGenerateCertificates(
         InputStream inStream)
         throws CertificateException
     {
@@ -370,7 +370,7 @@ public class CertificateFactory
      * only signficant field being crls.  In particular the signature
      * and the contents are ignored.
      */
-    public Collection engineGenerateCRLs(
+    public Collection<CRL> engineGenerateCRLs(
         InputStream inStream)
         throws CRLException
     {

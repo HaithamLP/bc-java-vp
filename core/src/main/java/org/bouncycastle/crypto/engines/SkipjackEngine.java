@@ -42,7 +42,7 @@ public class SkipjackEngine
 
     public SkipjackEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 80));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 80));
     }
 
     /**
@@ -53,7 +53,7 @@ public class SkipjackEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           encrypting,
         CipherParameters  params)
     {
@@ -82,10 +82,10 @@ public class SkipjackEngine
             key3[i] = keyBytes[(i * 4 + 3) % 10] & 0xff;
         }
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 80, params, getPurpose()));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 80, params, getPurpose()));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "SKIPJACK";
     }
@@ -128,7 +128,7 @@ public class SkipjackEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

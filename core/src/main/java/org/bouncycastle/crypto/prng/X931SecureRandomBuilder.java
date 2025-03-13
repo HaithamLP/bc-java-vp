@@ -81,7 +81,7 @@ public class X931SecureRandomBuilder
             Pack.longToBigEndian(System.currentTimeMillis(), dateTimeVector, 0);
         }
 
-        engine.init(true, key);
+        engine.initBlock(true, key);
 
         return new X931SecureRandom(random, new X931RNG(engine, dateTimeVector, entropySourceProvider.get(engine.getBlockSize() * 8)), predictionResistant);
     }

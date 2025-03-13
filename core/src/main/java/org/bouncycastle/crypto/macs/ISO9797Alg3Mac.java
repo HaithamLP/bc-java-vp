@@ -170,11 +170,11 @@ public class ISO9797Alg3Mac
 
         if (params instanceof ParametersWithIV)
         {
-            cipher.init(true, new ParametersWithIV(key1, ((ParametersWithIV)params).getIV()));
+            cipher.initBlock(true, new ParametersWithIV(key1, ((ParametersWithIV)params).getIV()));
         }
         else
         {
-            cipher.init(true, key1);
+            cipher.initBlock(true, key1);
         }
     }
     
@@ -267,10 +267,10 @@ public class ISO9797Alg3Mac
         // Added to code from base class
         DESEngine deseng = new DESEngine();
         
-        deseng.init(false, this.lastKey2);
+        deseng.initBlock(false, this.lastKey2);
         deseng.processBlock(mac, 0, mac, 0);
         
-        deseng.init(true, this.lastKey3);
+        deseng.initBlock(true, this.lastKey3);
         deseng.processBlock(mac, 0, mac, 0);
         // ****
         
@@ -300,6 +300,6 @@ public class ISO9797Alg3Mac
         /*
          * reset the underlying cipher.
          */
-        cipher.reset();
+        cipher.resetBlock();
     }
 }

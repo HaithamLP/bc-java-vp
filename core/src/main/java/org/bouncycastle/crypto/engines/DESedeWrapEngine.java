@@ -163,7 +163,7 @@ public class DESedeWrapEngine
          throw new IllegalStateException("Not multiple of block length");
       }
 
-      engine.init(true, paramPlusIV);
+      engine.initBlock(true, paramPlusIV);
 
       byte TEMP1[] = new byte[WKCKS.length];
 
@@ -186,7 +186,7 @@ public class DESedeWrapEngine
       // result. It is 40 octets long if a 168 bit key is being wrapped.
       ParametersWithIV param2 = new ParametersWithIV(this.param, IV2);
 
-      this.engine.init(true, param2);
+      this.engine.initBlock(true, param2);
 
       for (int currentBytePos = 0; currentBytePos != TEMP2.length; currentBytePos += blockSize) 
       {
@@ -244,7 +244,7 @@ public class DESedeWrapEngine
       // and an initialization vector (IV) of 0x4adda22c79e82105. Call the output TEMP3.
       ParametersWithIV param2 = new ParametersWithIV(this.param, IV2);
 
-      this.engine.init(false, param2);
+      this.engine.initBlock(false, param2);
 
       byte TEMP2[] = new byte[inLen];
 
@@ -268,7 +268,7 @@ public class DESedeWrapEngine
       // found in the previous step. Call the result WKCKS.
       this.paramPlusIV = new ParametersWithIV(this.param, this.iv);
 
-      this.engine.init(false, this.paramPlusIV);
+      this.engine.initBlock(false, this.paramPlusIV);
 
       byte[] WKCKS = new byte[TEMP1.length];
 

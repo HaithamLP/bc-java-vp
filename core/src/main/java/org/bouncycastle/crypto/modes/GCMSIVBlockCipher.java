@@ -235,7 +235,7 @@ public class GCMSIVBlockCipher
 
      public String getAlgorithmName()
      {
-         return theCipher.getAlgorithmName() + "-GCM-SIV";
+         return theCipher.getAlgorithmNameBlock() + "-GCM-SIV";
      }
 
      /**
@@ -770,7 +770,7 @@ public class GCMSIVBlockCipher
 
          /* Prepare for encryption */
          System.arraycopy(theNonce, 0, myIn, BUFLEN - NONCELEN, NONCELEN);
-         theCipher.init(true, pKey);
+         theCipher.initBlock(true, pKey);
 
          /* Derive authentication key */
          int myOff = 0;
@@ -806,7 +806,7 @@ public class GCMSIVBlockCipher
          }
 
          /* Initialise the Cipher */
-         theCipher.init(true, new KeyParameter(myEncKey));
+         theCipher.initBlock(true, new KeyParameter(myEncKey));
 
          /* Initialise the multiplier */
          fillReverse(myResult, 0, BUFLEN, myOut);

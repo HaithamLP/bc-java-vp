@@ -89,7 +89,7 @@ public class CertUniqueIDTest
 
       cert.verify(pubKey);
 
-      Set dummySet = cert.getNonCriticalExtensionOIDs();
+      Set<String> dummySet = cert.getNonCriticalExtensionOIDs();
       if (dummySet != null)
       {
           fail("non-critical oid set should be null");

@@ -1373,7 +1373,7 @@ class RFC3280CertPathUtilities
             //
             // d (4)
             //
-            Set criticalExtensionOids = cert.getCriticalExtensionOIDs();
+            Set<String> criticalExtensionOids = cert.getCriticalExtensionOIDs();
 
             if (criticalExtensionOids != null)
             {

@@ -68,13 +68,13 @@ class MacCFBBlockCipher
 
                 reset();
 
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
         }
         else
         {
                 reset();
 
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
         }
     }
 
@@ -86,7 +86,7 @@ class MacCFBBlockCipher
      */
     public String getAlgorithmName()
     {
-        return cipher.getAlgorithmName() + "/CFB" + (blockSize * 8);
+        return cipher.getAlgorithmNameBlock() + "/CFB" + (blockSize * 8);
     }
 
     /**
@@ -156,7 +156,7 @@ class MacCFBBlockCipher
     {
         System.arraycopy(IV, 0, cfbV, 0, IV.length);
 
-        cipher.reset();
+        cipher.resetBlock();
     }
 
     void getMacBlock(

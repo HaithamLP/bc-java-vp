@@ -365,7 +365,7 @@ public class BaseBlockCipher
             }
             else if (ivParam != null)
             {
-                String name = cipher.getUnderlyingCipher().getAlgorithmName();
+                String name = cipher.getUnderlyingCipher().getAlgorithmNameBlock();
 
                 if (name.indexOf('/') >= 0)
                 {
@@ -656,7 +656,7 @@ public class BaseBlockCipher
         //
         // for RC5-64 we must have some default parameters
         //
-        if (paramSpec == null && (baseEngine != null && baseEngine.getAlgorithmName().startsWith("RC5-64")))
+        if (paramSpec == null && (baseEngine != null && baseEngine.getAlgorithmNameBlock().startsWith("RC5-64")))
         {
             throw new InvalidAlgorithmParameterException("RC5 requires an RC5ParametersSpec to be passed in.");
         }
@@ -781,7 +781,7 @@ public class BaseBlockCipher
             else if (paramSpec instanceof PBEParameterSpec)
             {
                 pbeSpec = (PBEParameterSpec)paramSpec;
-                param = PBE.Util.makePBEParameters(k, paramSpec, cipher.getUnderlyingCipher().getAlgorithmName());
+                param = PBE.Util.makePBEParameters(k, paramSpec, cipher.getUnderlyingCipher().getAlgorithmNameBlock());
             }
             else
             {
@@ -926,16 +926,16 @@ public class BaseBlockCipher
             RC5ParameterSpec rc5Param = (RC5ParameterSpec)params;
 
             param = new RC5Parameters(key.getEncoded(), ((RC5ParameterSpec)params).getRounds());
-            if (baseEngine.getAlgorithmName().startsWith("RC5"))
+            if (baseEngine.getAlgorithmNameBlock().startsWith("RC5"))
             {
-                if (baseEngine.getAlgorithmName().equals("RC5-32"))
+                if (baseEngine.getAlgorithmNameBlock().equals("RC5-32"))
                 {
                     if (rc5Param.getWordSize() != 32)
                     {
                         throw new InvalidAlgorithmParameterException("RC5 already set up for a word size of 32 not " + rc5Param.getWordSize() + ".");
                     }
                 }
-                else if (baseEngine.getAlgorithmName().equals("RC5-64"))
+                else if (baseEngine.getAlgorithmNameBlock().equals("RC5-64"))
                 {
                     if (rc5Param.getWordSize() != 64)
                     {
@@ -1007,7 +1007,7 @@ public class BaseBlockCipher
                 param = new ParametersWithIV(param, iv);
                 ivParam = (ParametersWithIV)param;
             }
-            else if (cipher.getUnderlyingCipher().getAlgorithmName().indexOf("PGPCFB") < 0)
+            else if (cipher.getUnderlyingCipher().getAlgorithmNameBlock().indexOf("PGPCFB") < 0)
             {
                 throw new InvalidAlgorithmParameterException("no IV set when one expected");
             }
@@ -1387,7 +1387,7 @@ public class BaseBlockCipher
 
         public String getAlgorithmName()
         {
-            return cipher.getUnderlyingCipher().getAlgorithmName();
+            return cipher.getUnderlyingCipher().getAlgorithmNameBlock();
         }
 
         public org.bouncycastle.crypto.BlockCipher getUnderlyingCipher()
@@ -1560,7 +1560,7 @@ public class BaseBlockCipher
         {
             if (cipher instanceof AEADBlockCipher)
             {
-                return ((AEADBlockCipher)cipher).getUnderlyingCipher().getAlgorithmName();
+                return ((AEADBlockCipher)cipher).getUnderlyingCipher().getAlgorithmNameBlock();
             }
 
             return cipher.getAlgorithmName();

@@ -37,7 +37,7 @@ public class XTEAEngine
         _initialised = false;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "XTEA";
     }
@@ -55,7 +55,7 @@ public class XTEAEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             forEncryption,
         CipherParameters    params)
     {
@@ -71,7 +71,7 @@ public class XTEAEngine
 
         setKey(p.getKey());
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                    this.getAlgorithmName(), 128, params, Utils.getPurpose(forEncryption)));
+                    this.getAlgorithmNameBlock(), 128, params, Utils.getPurpose(forEncryption)));
     }
 
     public int processBlock(
@@ -82,7 +82,7 @@ public class XTEAEngine
     {
         if (!_initialised)
         {
-            throw new IllegalStateException(getAlgorithmName()+" not initialised");
+            throw new IllegalStateException(getAlgorithmNameBlock()+" not initialised");
         }
 
         if ((inOff + block_size) > in.length)
@@ -99,7 +99,7 @@ public class XTEAEngine
                                     : decryptBlock(in, inOff, out, outOff);
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

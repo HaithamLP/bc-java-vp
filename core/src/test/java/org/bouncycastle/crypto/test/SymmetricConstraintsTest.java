@@ -77,7 +77,7 @@ public class SymmetricConstraintsTest
 
         try
         {
-            eng.init(true, dKey);
+            eng.initBlock(true, dKey);
             fail("no exception");
         }
         catch (CryptoServiceConstraintsException e)
@@ -85,7 +85,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 128 bits of security only 80", e.getMessage());
         }
 
-        eng.init(false, dKey);     // this should work as we are decrypting
+        eng.initBlock(false, dKey);     // this should work as we are decrypting
 
         try
         {
@@ -122,7 +122,7 @@ public class SymmetricConstraintsTest
 
         try
         {
-            engine.init(true, new KeyParameter(new byte[12]));
+            engine.initBlock(true, new KeyParameter(new byte[12]));
             fail("no exception");
         }
         catch (CryptoServiceConstraintsException e)
@@ -130,15 +130,15 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 128 bits of security only 96", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[12]));
+        engine.initBlock(false, new KeyParameter(new byte[12]));
 
-        engine.init(true, new KeyParameter(new byte[16]));
+        engine.initBlock(true, new KeyParameter(new byte[16]));
 
         TnepresEngine tengine = new TnepresEngine();
 
         try
         {
-            tengine.init(true, new KeyParameter(new byte[12]));
+            tengine.initBlock(true, new KeyParameter(new byte[12]));
             fail("no exception");
         }
         catch (CryptoServiceConstraintsException e)
@@ -146,9 +146,9 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 128 bits of security only 96", e.getMessage());
         }
 
-        tengine.init(false, new KeyParameter(new byte[12]));
+        tengine.initBlock(false, new KeyParameter(new byte[12]));
 
-        tengine.init(true, new KeyParameter(new byte[16]));
+        tengine.initBlock(true, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -161,7 +161,7 @@ public class SymmetricConstraintsTest
 
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception");
         }
         catch (CryptoServiceConstraintsException e)
@@ -169,9 +169,9 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 192 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[24]));
+        engine.initBlock(true, new KeyParameter(new byte[24]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -184,7 +184,7 @@ public class SymmetricConstraintsTest
 
         try
         {
-            engine.init(true, new KeyParameter(new byte[10]));
+            engine.initBlock(true, new KeyParameter(new byte[10]));
             fail("no exception");
         }
         catch (CryptoServiceConstraintsException e)
@@ -192,7 +192,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 128 bits of security only 80", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[10]));
+        engine.initBlock(false, new KeyParameter(new byte[10]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -203,7 +203,7 @@ public class SymmetricConstraintsTest
         AESEngine engine = new AESEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -212,13 +212,13 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[24]));
-        engine.init(false, new KeyParameter(new byte[24]));
+        engine.initBlock(true, new KeyParameter(new byte[24]));
+        engine.initBlock(false, new KeyParameter(new byte[24]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -230,7 +230,7 @@ public class SymmetricConstraintsTest
         AESFastEngine engine = new AESFastEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -239,7 +239,7 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -250,7 +250,7 @@ public class SymmetricConstraintsTest
         AESLightEngine engine = new AESLightEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -259,13 +259,13 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[24]));
-        engine.init(false, new KeyParameter(new byte[24]));
+        engine.initBlock(true, new KeyParameter(new byte[24]));
+        engine.initBlock(false, new KeyParameter(new byte[24]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -276,7 +276,7 @@ public class SymmetricConstraintsTest
         ARIAEngine engine = new ARIAEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -285,13 +285,13 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[24]));
-        engine.init(false, new KeyParameter(new byte[24]));
+        engine.initBlock(true, new KeyParameter(new byte[24]));
+        engine.initBlock(false, new KeyParameter(new byte[24]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -302,7 +302,7 @@ public class SymmetricConstraintsTest
         BlowfishEngine engine = new BlowfishEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -311,13 +311,13 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[24]));
-        engine.init(false, new KeyParameter(new byte[24]));
+        engine.initBlock(true, new KeyParameter(new byte[24]));
+        engine.initBlock(false, new KeyParameter(new byte[24]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -328,7 +328,7 @@ public class SymmetricConstraintsTest
         CamelliaEngine engine = new CamelliaEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -337,10 +337,10 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -351,7 +351,7 @@ public class SymmetricConstraintsTest
         CamelliaLightEngine engine = new CamelliaLightEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -359,10 +359,10 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -373,7 +373,7 @@ public class SymmetricConstraintsTest
         CAST5Engine engine = new CAST5Engine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -381,7 +381,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -392,7 +392,7 @@ public class SymmetricConstraintsTest
         SEEDEngine engine = new SEEDEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -400,7 +400,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -411,7 +411,7 @@ public class SymmetricConstraintsTest
         IDEAEngine engine = new IDEAEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -420,9 +420,9 @@ public class SymmetricConstraintsTest
         }
 
 
-        engine.init(false, new KeyParameter(new byte[16]));
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -433,7 +433,7 @@ public class SymmetricConstraintsTest
         SM4Engine engine = new SM4Engine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -441,7 +441,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -452,7 +452,7 @@ public class SymmetricConstraintsTest
         TEAEngine engine = new TEAEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -460,7 +460,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -471,7 +471,7 @@ public class SymmetricConstraintsTest
         TEAEngine engine = new TEAEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -479,7 +479,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -490,7 +490,7 @@ public class SymmetricConstraintsTest
         CAST6Engine engine = new CAST6Engine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -498,9 +498,9 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));     // should work
+        engine.initBlock(false, new KeyParameter(new byte[16]));     // should work
 
-        engine.init(true, new KeyParameter(new byte[32]));      // should work
+        engine.initBlock(true, new KeyParameter(new byte[32]));      // should work
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -532,7 +532,7 @@ public class SymmetricConstraintsTest
         Shacal2Engine engine = new Shacal2Engine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -540,9 +540,9 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));     // should work
+        engine.initBlock(false, new KeyParameter(new byte[16]));     // should work
 
-        engine.init(true, new KeyParameter(new byte[32]));      // should work
+        engine.initBlock(true, new KeyParameter(new byte[32]));      // should work
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -553,7 +553,7 @@ public class SymmetricConstraintsTest
         ThreefishEngine engine = new ThreefishEngine(256);
         try
         {
-            engine.init(true, new KeyParameter(new byte[32]));
+            engine.initBlock(true, new KeyParameter(new byte[32]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -561,7 +561,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 384 bits of security only 256", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -678,7 +678,7 @@ public class SymmetricConstraintsTest
         RC564Engine xengine = new RC564Engine();
         try
         {
-            engine.init(true, new RC5Parameters(new byte[16], 16));
+            engine.initBlock(true, new RC5Parameters(new byte[16], 16));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -688,7 +688,7 @@ public class SymmetricConstraintsTest
 
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -696,10 +696,10 @@ public class SymmetricConstraintsTest
             isEquals(e.getMessage(), "service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        xengine.init(true, new RC5Parameters(new byte[32], 12));
+        xengine.initBlock(true, new RC5Parameters(new byte[32], 12));
 
-        engine.init(false, new RC5Parameters(new byte[16], 16));
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new RC5Parameters(new byte[16], 16));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -710,7 +710,7 @@ public class SymmetricConstraintsTest
         RijndaelEngine engine = new RijndaelEngine(256);
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -718,7 +718,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -755,7 +755,7 @@ public class SymmetricConstraintsTest
         GOST28147Engine engine = new GOST28147Engine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[32]));
+            engine.initBlock(true, new KeyParameter(new byte[32]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -763,7 +763,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 178", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -851,7 +851,7 @@ public class SymmetricConstraintsTest
         DSTU7624Engine engine = new DSTU7624Engine(128);
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -859,15 +859,15 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 192 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         engine = new DSTU7624Engine(256);
 
-        engine.init(true, new KeyParameter(new byte[64]));
-        engine.init(false, new KeyParameter(new byte[64]));
+        engine.initBlock(true, new KeyParameter(new byte[64]));
+        engine.initBlock(false, new KeyParameter(new byte[64]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -878,7 +878,7 @@ public class SymmetricConstraintsTest
         LEAEngine engine = new LEAEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -886,13 +886,13 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 192 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
-        engine.init(true, new KeyParameter(new byte[24]));
-        engine.init(false, new KeyParameter(new byte[24]));
+        engine.initBlock(true, new KeyParameter(new byte[24]));
+        engine.initBlock(false, new KeyParameter(new byte[24]));
 
-        engine.init(true, new KeyParameter(new byte[32]));
-        engine.init(false, new KeyParameter(new byte[32]));
+        engine.initBlock(true, new KeyParameter(new byte[32]));
+        engine.initBlock(false, new KeyParameter(new byte[32]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -903,7 +903,7 @@ public class SymmetricConstraintsTest
         NoekeonEngine engine = new NoekeonEngine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -911,7 +911,7 @@ public class SymmetricConstraintsTest
             isEquals("service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -922,7 +922,7 @@ public class SymmetricConstraintsTest
         RC2Engine engine = new RC2Engine();
         try
         {
-            engine.init(true, new RC2Parameters(new byte[16], 16));
+            engine.initBlock(true, new RC2Parameters(new byte[16], 16));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -932,7 +932,7 @@ public class SymmetricConstraintsTest
 
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -940,8 +940,8 @@ public class SymmetricConstraintsTest
             isEquals(e.getMessage(), "service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new RC2Parameters(new byte[16], 16));
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new RC2Parameters(new byte[16], 16));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }
@@ -952,7 +952,7 @@ public class SymmetricConstraintsTest
         RC6Engine engine = new RC6Engine();
         try
         {
-            engine.init(true, new KeyParameter(new byte[16]));
+            engine.initBlock(true, new KeyParameter(new byte[16]));
             fail("no exception!");
         }
         catch (CryptoServiceConstraintsException e)
@@ -960,7 +960,7 @@ public class SymmetricConstraintsTest
             isEquals(e.getMessage(), "service does not provide 256 bits of security only 128", e.getMessage());
         }
 
-        engine.init(false, new KeyParameter(new byte[16]));
+        engine.initBlock(false, new KeyParameter(new byte[16]));
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }

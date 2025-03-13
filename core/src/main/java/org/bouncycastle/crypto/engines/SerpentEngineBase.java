@@ -23,7 +23,7 @@ public abstract class SerpentEngineBase
 
     SerpentEngineBase()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 256));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 256));
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class SerpentEngineBase
      * @throws IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean encrypting,
         CipherParameters params)
     {
@@ -44,14 +44,14 @@ public abstract class SerpentEngineBase
             byte[] keyBytes = ((KeyParameter)params).getKey();
             this.wKey = makeWorkingKey(keyBytes);
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), keyBytes.length * 8, params, getPurpose()));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), keyBytes.length * 8, params, getPurpose()));
             return;
         }
 
-        throw new IllegalArgumentException("invalid parameter passed to " + getAlgorithmName() + " init - " + params.getClass().getName());
+        throw new IllegalArgumentException("invalid parameter passed to " + getAlgorithmNameBlock() + " init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Serpent";
     }
@@ -82,7 +82,7 @@ public abstract class SerpentEngineBase
     {
         if (wKey == null)
         {
-            throw new IllegalStateException(getAlgorithmName() + " not initialised");
+            throw new IllegalStateException(getAlgorithmNameBlock() + " not initialised");
         }
 
         if ((inOff + BLOCK_SIZE) > in.length)
@@ -107,7 +107,7 @@ public abstract class SerpentEngineBase
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

@@ -48,7 +48,7 @@ public class SM4Test
 
         BlockCipher engine = new SM4Engine();
 
-        engine.init(true, new KeyParameter(key));
+        engine.initBlock(true, new KeyParameter(key));
 
         System.arraycopy(plain, 0, buf, 0, buf.length);
 
@@ -62,7 +62,7 @@ public class SM4Test
             fail("1000000 encryption test failed");
         }
 
-        engine.init(false, new KeyParameter(key));
+        engine.initBlock(false, new KeyParameter(key));
 
         for (int i = 0; i != 1000000; i++)
         {

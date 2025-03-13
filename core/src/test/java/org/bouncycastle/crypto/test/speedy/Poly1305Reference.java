@@ -97,13 +97,13 @@ public class Poly1305Reference
         final byte[] cipherKey = new byte[BLOCK_SIZE];
         System.arraycopy(key, 0, cipherKey, 0, cipherKey.length);
 
-        cipher.init(true, new KeyParameter(cipherKey));
+        cipher.initBlock(true, new KeyParameter(cipherKey));
         cipher.processBlock(nonce, 0, this.encryptedNonce, 0);
     }
 
     public String getAlgorithmName()
     {
-        return "Poly1305-Ref-" + cipher.getAlgorithmName();
+        return "Poly1305-Ref-" + cipher.getAlgorithmNameBlock();
     }
 
     public int getMacSize()

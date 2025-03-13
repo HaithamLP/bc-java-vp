@@ -33,7 +33,7 @@ public class KCTRBlockCipher
         this.ofbOutV = new byte[engine.getBlockSize()];
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         this.initialised = true;
@@ -55,15 +55,15 @@ public class KCTRBlockCipher
  
         if (params != null)
         {
-            engine.init(true, params);
+            engine.initBlock(true, params);
         }
 
-        reset();
+        resetBlock();
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return engine.getAlgorithmName() + "/KCTR";
+        return engine.getAlgorithmNameBlock() + "/KCTR";
     }
 
     public int getBlockSize()
@@ -111,13 +111,13 @@ public class KCTRBlockCipher
         return getBlockSize();
     }
 
-    public void reset()
+    public void resetBlock()
     {
         if (initialised)
         {
             engine.processBlock(this.iv, 0, ofbV, 0);
         }
-        engine.reset();
+        engine.resetBlock();
         byteCount = 0;
     }
 
@@ -147,5 +147,21 @@ public class KCTRBlockCipher
 //                }
 //            }
 //        }
+    }
+
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

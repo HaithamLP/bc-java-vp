@@ -333,7 +333,7 @@ public  class PKIXCertPath
      *
      * @return an immutable List of Certificates (may be empty, but not null)
      **/
-    public List getCertificates()
+    public List<Certificate> getCertificates()
     {
         return Collections.unmodifiableList(new ArrayList(certificates));
     }

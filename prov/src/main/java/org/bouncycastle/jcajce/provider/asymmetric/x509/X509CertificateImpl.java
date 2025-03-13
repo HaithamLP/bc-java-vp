@@ -325,11 +325,11 @@ abstract class X509CertificateImpl
         return getAlternativeNames(c, Extension.issuerAlternativeName);
     }
 
-    public Set getCriticalExtensionOIDs() 
+    public Set<String> getCriticalExtensionOIDs()
     {
         if (this.getVersion() == 3)
         {
-            Set             set = new HashSet();
+            Set<String>             set = new HashSet<String>();
             Extensions  extensions = c.getExtensions();
 
             if (extensions != null)
@@ -359,7 +359,7 @@ abstract class X509CertificateImpl
         return X509SignatureUtil.getExtensionValue(c.getExtensions(), oid);
     }
 
-    public Set getNonCriticalExtensionOIDs() 
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         if (this.getVersion() == 3)
         {

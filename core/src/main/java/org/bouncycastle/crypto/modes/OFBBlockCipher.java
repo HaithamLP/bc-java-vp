@@ -57,7 +57,7 @@ public class OFBBlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             encrypting, //ignored by this OFB mode
         CipherParameters    params)
         throws IllegalArgumentException
@@ -81,22 +81,22 @@ public class OFBBlockCipher
                 System.arraycopy(iv, 0, IV, 0, IV.length);
             }
 
-            reset();
+            resetBlock();
 
             // if null it's an IV changed only.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
             }
         }
         else
         {
-            reset();
+            resetBlock();
 
             // if it's null, key is to be reused.
             if (params != null)
             {
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
             }
         }
     }
@@ -107,9 +107,9 @@ public class OFBBlockCipher
      * @return the name of the underlying algorithm followed by "/OFB"
      * and the block size in bits
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/OFB" + (blockSize * 8);
+        return cipher.getAlgorithmNameBlock() + "/OFB" + (blockSize * 8);
     }
 
 
@@ -152,12 +152,12 @@ public class OFBBlockCipher
      * reset the feedback vector back to the IV and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
         System.arraycopy(IV, 0, ofbV, 0, IV.length);
         byteCount = 0;
 
-        cipher.reset();
+        cipher.resetBlock();
     }
 
     protected byte calculateByte(byte in)
@@ -179,5 +179,20 @@ public class OFBBlockCipher
         }
 
         return rv;
+    }
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

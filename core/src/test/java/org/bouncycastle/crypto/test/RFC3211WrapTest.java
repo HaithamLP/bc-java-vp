@@ -121,7 +121,7 @@ public class RFC3211WrapTest
     {
         BlockCipher engine = new CBCBlockCipher(new DESEngine());
 
-        engine.init(true, new ParametersWithIV(new KeyParameter(key), iv));
+        engine.initBlock(true, new ParametersWithIV(new KeyParameter(key), iv));
 
         for (int i = 0; i < cekBlock.length; i += 8)
         {

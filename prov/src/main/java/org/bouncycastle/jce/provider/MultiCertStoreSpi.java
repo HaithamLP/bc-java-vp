@@ -1,12 +1,7 @@
 package org.bouncycastle.jce.provider;
 
 import java.security.InvalidAlgorithmParameterException;
-import java.security.cert.CRLSelector;
-import java.security.cert.CertSelector;
-import java.security.cert.CertStore;
-import java.security.cert.CertStoreException;
-import java.security.cert.CertStoreParameters;
-import java.security.cert.CertStoreSpi;
+import java.security.cert.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +28,7 @@ public class MultiCertStoreSpi
         this.params = (MultiCertStoreParameters)params;
     }
 
-    public Collection engineGetCertificates(CertSelector certSelector)
+    public Collection<Certificate> engineGetCertificates(CertSelector certSelector)
         throws CertStoreException
     {
         boolean searchAllStores = params.getSearchAllStores();
@@ -58,7 +53,7 @@ public class MultiCertStoreSpi
         return allCerts;
     }
 
-    public Collection engineGetCRLs(CRLSelector crlSelector)
+    public Collection<CRL> engineGetCRLs(CRLSelector crlSelector)
         throws CertStoreException
     {
         boolean searchAllStores = params.getSearchAllStores();

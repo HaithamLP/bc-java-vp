@@ -975,7 +975,7 @@ class RFC3280CertPathUtilities
                 // update reasons mask
                 reasonMask.addReasons(interimReasonsMask);
 
-                Set criticalExtensions = crl.getCriticalExtensionOIDs();
+                Set<String> criticalExtensions = crl.getCriticalExtensionOIDs();
                 if (criticalExtensions != null)
                 {
                     criticalExtensions = new HashSet(criticalExtensions);

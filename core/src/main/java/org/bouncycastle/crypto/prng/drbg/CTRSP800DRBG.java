@@ -97,7 +97,7 @@ public class CTRSP800DRBG
         int i=0;
         int outLen = _engine.getBlockSize();
 
-        _engine.init(true, new KeyParameter(expandKey(key)));
+        _engine.initBlock(true, new KeyParameter(expandKey(key)));
         while (i*outLen < seed.length)
         {
             addOneTo(v);
@@ -256,7 +256,7 @@ public class CTRSP800DRBG
         temp = new byte[bitLength / 8];
 
         i = 0;
-        _engine.init(true, new KeyParameter(expandKey(K)));
+        _engine.initBlock(true, new KeyParameter(expandKey(K)));
 
         while (i * outLen < temp.length)
         {
@@ -293,7 +293,7 @@ public class CTRSP800DRBG
 
         byte[] inputBlock = new byte[blockSize];
 
-        _engine.init(true, new KeyParameter(expandKey(k)));
+        _engine.initBlock(true, new KeyParameter(expandKey(k)));
 
         _engine.processBlock(iV, 0, chainingValue, 0);
 
@@ -378,7 +378,7 @@ public class CTRSP800DRBG
 
         byte[] out = new byte[_V.length];
 
-        _engine.init(true, new KeyParameter(expandKey(_Key)));
+        _engine.initBlock(true, new KeyParameter(expandKey(_Key)));
 
         for (int i = 0; i <= output.length / out.length; i++)
         {
@@ -415,7 +415,7 @@ public class CTRSP800DRBG
 
     private boolean isTDEA(BlockCipher cipher)
     {
-        return cipher.getAlgorithmName().equals("DESede") || cipher.getAlgorithmName().equals("TDEA");
+        return cipher.getAlgorithmNameBlock().equals("DESede") || cipher.getAlgorithmNameBlock().equals("TDEA");
     }
 
     private int getMaxSecurityStrength(BlockCipher cipher, int keySizeInBits)
@@ -424,7 +424,7 @@ public class CTRSP800DRBG
         {
             return 112;
         }
-        if (cipher.getAlgorithmName().equals("AES"))
+        if (cipher.getAlgorithmNameBlock().equals("AES"))
         {
             return keySizeInBits;
         }

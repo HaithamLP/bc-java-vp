@@ -12,17 +12,15 @@ import org.bouncycastle.util.Selector;
 
 /**
  * This class is a Selector implementation for certificates.
- * 
+ *
  * @see org.bouncycastle.util.Selector
  */
 public class PKIXCertStoreSelector<T extends Certificate>
-    implements Selector<T>
-{
+        implements Selector {
     /**
      * Builder for a PKIXCertStoreSelector.
      */
-    public static class Builder
-    {
+    public static class Builder {
         private final CertSelector baseSelector;
 
         /**
@@ -30,9 +28,8 @@ public class PKIXCertStoreSelector<T extends Certificate>
          *
          * @param certSelector the CertSelector to copy the match details from.
          */
-        public Builder(CertSelector certSelector)
-        {
-            this.baseSelector = (CertSelector)certSelector.clone();
+        public Builder(CertSelector certSelector) {
+            this.baseSelector = (CertSelector) certSelector.clone();
         }
 
         /**
@@ -40,16 +37,14 @@ public class PKIXCertStoreSelector<T extends Certificate>
          *
          * @return a new PKIXCertStoreSelector
          */
-        public PKIXCertStoreSelector<? extends Certificate> build()
-        {
+        public PKIXCertStoreSelector<? extends Certificate> build() {
             return new PKIXCertStoreSelector(baseSelector);
         }
     }
 
     private final CertSelector baseSelector;
 
-    private PKIXCertStoreSelector(CertSelector baseSelector)
-    {
+    private PKIXCertStoreSelector(CertSelector baseSelector) {
         this.baseSelector = baseSelector;
     }
 
@@ -58,44 +53,37 @@ public class PKIXCertStoreSelector<T extends Certificate>
      *
      * @return a specific certificate where the selector has been configured explicitly.
      */
-    public Certificate getCertificate()
-    {
-         if (baseSelector instanceof X509CertSelector)
-         {
-             return ((X509CertSelector)baseSelector).getCertificate();
-         }
+    public Certificate getCertificate() {
+        if (baseSelector instanceof X509CertSelector) {
+            return ((X509CertSelector) baseSelector).getCertificate();
+        }
 
-         return null;
+        return null;
     }
 
-    public boolean match(Certificate cert)
-    {
-        return baseSelector.match(cert);
+    public boolean match(Object cert) {
+        return baseSelector.match((Certificate) cert);
     }
 
-    public Object clone()
-    {
+
+    public Object clone() {
         return new PKIXCertStoreSelector(baseSelector);
     }
 
     public static Collection<? extends Certificate> getCertificates(final PKIXCertStoreSelector selector, CertStore certStore)
-        throws CertStoreException
-    {
+            throws CertStoreException {
         return certStore.getCertificates(new SelectorClone(selector));
     }
 
     private static class SelectorClone
-        extends X509CertSelector
-    {
+            extends X509CertSelector {
         private final PKIXCertStoreSelector selector;
 
-        SelectorClone(PKIXCertStoreSelector selector)
-        {
+        SelectorClone(PKIXCertStoreSelector selector) {
             this.selector = selector;
 
-            if (selector.baseSelector instanceof X509CertSelector)
-            {
-                X509CertSelector baseSelector = (X509CertSelector)selector.baseSelector;
+            if (selector.baseSelector instanceof X509CertSelector) {
+                X509CertSelector baseSelector = (X509CertSelector) selector.baseSelector;
 
                 this.setAuthorityKeyIdentifier(baseSelector.getAuthorityKeyIdentifier());
                 this.setBasicConstraints(baseSelector.getBasicConstraints());
@@ -108,8 +96,7 @@ public class PKIXCertStoreSelector<T extends Certificate>
                 this.setSubjectKeyIdentifier(baseSelector.getSubjectKeyIdentifier());
                 this.setSubjectPublicKey(baseSelector.getSubjectPublicKey());
 
-                try
-                {
+                try {
                     this.setExtendedKeyUsage(baseSelector.getExtendedKeyUsage());
                     this.setIssuer(baseSelector.getIssuerAsBytes());
                     this.setNameConstraints(baseSelector.getNameConstraints());
@@ -118,16 +105,13 @@ public class PKIXCertStoreSelector<T extends Certificate>
                     this.setSubject(baseSelector.getSubjectAsBytes());
                     this.setSubjectAlternativeNames(baseSelector.getSubjectAlternativeNames());
                     this.setSubjectPublicKeyAlgID(baseSelector.getSubjectPublicKeyAlgID());
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     throw new IllegalStateException("base selector invalid: " + e.getMessage(), e);
                 }
             }
         }
 
-        public boolean match(Certificate certificate)
-        {
+        public boolean match(Certificate certificate) {
             return (selector == null) ? (certificate != null) : selector.match(certificate);
         }
     }

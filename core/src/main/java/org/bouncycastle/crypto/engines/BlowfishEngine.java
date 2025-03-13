@@ -318,7 +318,7 @@ implements BlockCipher
         S2 = new int[SBOX_SK];
         S3 = new int[SBOX_SK];
         P = new int[P_SZ];
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity()));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity()));
     }
 
     /**
@@ -329,7 +329,7 @@ implements BlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             encrypting,
         CipherParameters    params)
     {
@@ -339,14 +339,14 @@ implements BlockCipher
             this.workingKey = ((KeyParameter)params).getKey();
             setKey(this.workingKey);
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, getPurpose()));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, getPurpose()));
             return;
         }
 
         throw new IllegalArgumentException("invalid parameter passed to Blowfish init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Blowfish";
     }
@@ -384,7 +384,7 @@ implements BlockCipher
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

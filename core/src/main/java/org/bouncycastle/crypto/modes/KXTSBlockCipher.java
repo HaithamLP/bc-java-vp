@@ -92,10 +92,10 @@ public class KXTSBlockCipher
         byte[] tweak = new byte[blockSize];
         System.arraycopy(iv, 0, tweak, 0, blockSize);
 
-        cipher.init(true, parameters);
+        cipher.initBlock(true, parameters);
         cipher.processBlock(tweak, 0, tweak, 0);
 
-        cipher.init(forEncryption, parameters);
+        cipher.initBlock(forEncryption, parameters);
         Pack.littleEndianToLong(tweak, 0, tw_init);
         System.arraycopy(tw_init, 0, tw_current, 0, tw_init.length);
         counter = 0;
@@ -178,7 +178,7 @@ public class KXTSBlockCipher
     public void reset()
     {
 //        super.reset();
-        cipher.reset();
+        cipher.resetBlock();
 
         System.arraycopy(tw_init, 0, tw_current, 0, tw_init.length);
         counter = 0;

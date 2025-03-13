@@ -116,7 +116,7 @@ public class GCMBlockCipher
 
     public String getAlgorithmName()
     {
-        return cipher.getAlgorithmName() + "/GCM";
+        return cipher.getAlgorithmNameBlock() + "/GCM";
     }
 
     /**
@@ -198,7 +198,7 @@ public class GCMBlockCipher
         // if keyParam is null we're reusing the last key.
         if (keyParam != null)
         {
-            cipher.init(true, keyParam);
+            cipher.initBlock(true, keyParam);
 
             this.H = new byte[BLOCK_SIZE];
             cipher.processBlock(H, 0, H, 0);
@@ -594,7 +594,7 @@ public class GCMBlockCipher
     private void reset(
         boolean clearMac)
     {
-        cipher.reset();
+        cipher.resetBlock();
 
         // note: we do not reset the nonce.
 

@@ -162,8 +162,8 @@ public class LEAEngine
         theBlock = new int[NUMWORDS];
     }
 
-    public void init(final boolean pEncrypt,
-                     final CipherParameters pParams)
+    public void initBlock(final boolean pEncrypt,
+                          final CipherParameters pParams)
     {
         /* Reject invalid parameters */
         if (!(pParams instanceof KeyParameter))
@@ -185,17 +185,17 @@ public class LEAEngine
         /* Generate the round keys */
         forEncryption = pEncrypt;
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), myKeyLen * 8, pParams, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), myKeyLen * 8, pParams, Utils.getPurpose(forEncryption)));
 
         generateRoundKeys(myKey);
     }
 
-    public void reset()
+    public void resetBlock()
     {
         /* NoOp */
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "LEA";
     }

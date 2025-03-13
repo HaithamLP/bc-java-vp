@@ -72,7 +72,7 @@ abstract class FrodoMatrixGenerator
             byte[] c = new byte[16];
 
             BlockCipher cipher = new AESEngine();
-            cipher.init(true, new KeyParameter(seedA));
+            cipher.initBlock(true, new KeyParameter(seedA));
 
             // 1. for i = 0; i < n; i += 1
             for (int i = 0; i < n; i++)

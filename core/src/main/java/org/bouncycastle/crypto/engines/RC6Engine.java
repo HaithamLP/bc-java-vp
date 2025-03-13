@@ -48,7 +48,7 @@ public class RC6Engine
         _S            = null;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "RC6";
     }
@@ -66,7 +66,7 @@ public class RC6Engine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             forEncryption,
         CipherParameters    params)
     {
@@ -80,7 +80,7 @@ public class RC6Engine
         byte[] key = p.getKey();
         setKey(key);
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), key.length * 8, params, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), key.length * 8, params, Utils.getPurpose(forEncryption)));
     }
 
     public int processBlock(
@@ -108,7 +108,7 @@ public class RC6Engine
             :   decryptBlock(in, inOff, out, outOff);
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

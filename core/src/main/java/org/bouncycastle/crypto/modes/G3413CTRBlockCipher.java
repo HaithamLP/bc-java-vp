@@ -71,7 +71,7 @@ public class G3413CTRBlockCipher
      * @throws IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean encrypting, //ignored by this CTR mode
         CipherParameters params)
         throws IllegalArgumentException
@@ -99,7 +99,7 @@ public class G3413CTRBlockCipher
             // if null it's an IV changed only.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
             }
         }
         else
@@ -109,7 +109,7 @@ public class G3413CTRBlockCipher
             // if it's null, key is to be reused.
             if (params != null)
             {
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
             }
         }
 
@@ -129,9 +129,9 @@ public class G3413CTRBlockCipher
      * @return the name of the underlying algorithm followed by "/GCTR"
      * and the block size in bits
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/GCTR";
+        return cipher.getAlgorithmNameBlock() + "/GCTR";
     }
 
     /**
@@ -212,7 +212,7 @@ public class G3413CTRBlockCipher
      * reset the feedback vector back to the IV and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
         if (initialized)
         {
@@ -222,7 +222,22 @@ public class G3413CTRBlockCipher
                 CTR[i] = 0;
             }
             byteCount = 0;
-            cipher.reset();
+            cipher.resetBlock();
         }
+    }
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

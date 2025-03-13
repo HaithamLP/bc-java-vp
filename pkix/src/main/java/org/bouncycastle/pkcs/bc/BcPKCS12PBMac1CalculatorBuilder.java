@@ -1,7 +1,5 @@
 package org.bouncycastle.pkcs.bc;
 
-import java.io.IOException;
-
 import org.bouncycastle.asn1.pkcs.PBKDF2Params;
 import org.bouncycastle.asn1.pkcs.PBMAC1Params;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
@@ -9,6 +7,8 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.operator.MacCalculator;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.pkcs.PKCS12MacCalculatorBuilder;
+
+import java.io.IOException;
 
 public class BcPKCS12PBMac1CalculatorBuilder
     implements PKCS12MacCalculatorBuilder
@@ -27,11 +27,7 @@ public class BcPKCS12PBMac1CalculatorBuilder
                 throw new IOException("Key length must be present when using PBMAC1.");
             }
         }
-        else
-        {
-            // TODO: add scrypt support.
-            throw new IllegalArgumentException("unrecognised PBKDF");
-        }
+        // TODO handle other cases
     }
 
     @Override

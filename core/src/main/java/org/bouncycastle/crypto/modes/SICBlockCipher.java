@@ -53,7 +53,7 @@ public class SICBlockCipher
         this.byteCount = 0;
     }
 
-    public void init(
+    public void initBlock(
         boolean             forEncryption, //ignored by this CTR mode
         CipherParameters    params)
         throws IllegalArgumentException
@@ -78,10 +78,10 @@ public class SICBlockCipher
             // if null it's an IV changed only.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
             }
 
-            reset();
+            resetBlock();
         }
         else
         {
@@ -89,9 +89,9 @@ public class SICBlockCipher
         }
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/SIC";
+        return cipher.getAlgorithmNameBlock() + "/SIC";
     }
 
     public int getBlockSize()
@@ -321,11 +321,11 @@ public class SICBlockCipher
         }
     }
 
-    public void reset()
+    public void resetBlock()
     {
         Arrays.fill(counter, (byte)0);
         System.arraycopy(IV, 0, counter, 0, IV.length);
-        cipher.reset();
+        cipher.resetBlock();
         this.byteCount = 0;
     }
 
@@ -342,7 +342,7 @@ public class SICBlockCipher
 
     public long seekTo(long position)
     {
-        reset();
+        resetBlock();
 
         return skip(position);
     }
@@ -375,5 +375,21 @@ public class SICBlockCipher
         }
 
         return Pack.bigEndianToLong(res, res.length - 8) * blockSize + byteCount;
+    }
+
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

@@ -49,7 +49,7 @@ public class DSTU7624WrapEngine
         this.forWrapping = forWrapping;
         if (param instanceof KeyParameter)
         {
-            engine.init(forWrapping, param);
+            engine.initBlock(forWrapping, param);
         }
         else
         {

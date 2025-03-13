@@ -119,7 +119,7 @@ public class BrokenJCEBlockCipher
         {
             if (ivParam != null)
             {
-                String  name = cipher.getUnderlyingCipher().getAlgorithmName();
+                String  name = cipher.getUnderlyingCipher().getAlgorithmNameBlock();
 
                 if (name.indexOf('/') >= 0)
                 {
@@ -234,7 +234,7 @@ public class BrokenJCEBlockCipher
         if (key instanceof BCPBEKey)
         {
             param = BrokenPBE.Util.makePBEParameters((BCPBEKey)key, params, pbeType, pbeHash,
-                        cipher.getUnderlyingCipher().getAlgorithmName(), pbeKeySize, pbeIvSize);
+                        cipher.getUnderlyingCipher().getAlgorithmNameBlock(), pbeKeySize, pbeIvSize);
 
             if (pbeIvSize != 0)
             {

@@ -38,11 +38,11 @@ public class GCFBBlockCipher
         this.cfbEngine = new CFBBlockCipher(engine, engine.getBlockSize() * 8);
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         counter = 0;
-        cfbEngine.init(forEncryption, params);
+        cfbEngine.initBlock(forEncryption, params);
         byte[] iv = null;
 
         this.forEncryption = forEncryption;
@@ -84,9 +84,9 @@ public class GCFBBlockCipher
         initParams = new ParametersWithIV(key, iv);
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        String name = cfbEngine.getAlgorithmName();
+        String name = cfbEngine.getAlgorithmNameBlock();
         return name.substring(0, name.indexOf('/')) + "/G" + name.substring(name.indexOf('/') + 1);
     }
 
@@ -109,7 +109,7 @@ public class GCFBBlockCipher
         {
             BlockCipher base = cfbEngine.getUnderlyingCipher();
 
-            base.init(false, key);
+            base.initBlock(false, key);
 
             byte[] nextKey = new byte[32];
             int blockSize = base.getBlockSize();
@@ -121,13 +121,13 @@ public class GCFBBlockCipher
 
             key = new KeyParameter(nextKey);
 
-            base.init(true, key);
+            base.initBlock(true, key);
 
             byte[] iv = cfbEngine.getCurrentIV();
 
             base.processBlock(iv, 0, iv, 0);
 
-            cfbEngine.init(forEncryption, new ParametersWithIV(key, iv));
+            cfbEngine.initBlock(forEncryption, new ParametersWithIV(key, iv));
         }
 
         counter++;
@@ -135,17 +135,33 @@ public class GCFBBlockCipher
         return cfbEngine.calculateByte(b);
     }
 
-    public void reset()
+    public void resetBlock()
     {
         counter = 0;
         if (initParams != null)
         {
             key = (KeyParameter)initParams.getParameters();
-            cfbEngine.init(forEncryption, initParams);
+            cfbEngine.initBlock(forEncryption, initParams);
         }
         else
         {
-            cfbEngine.reset();
+            cfbEngine.resetBlock();
         }
+    }
+
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

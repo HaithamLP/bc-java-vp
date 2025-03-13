@@ -576,7 +576,7 @@ public class BcCertTest
         assertTrue(certH.isSignatureValid(contentVerifierProvider));
 
         X509Certificate cert = new JcaX509CertificateConverter().getCertificate(certH);
-        Set dummySet = cert.getNonCriticalExtensionOIDs();
+        Set<String> dummySet = cert.getNonCriticalExtensionOIDs();
         if (dummySet != null)
         {
             fail("non-critical oid set should be null");

@@ -70,7 +70,7 @@ public class RFC5649WrapEngine
 
     public String getAlgorithmName()
     {
-        return engine.getAlgorithmName();
+        return engine.getAlgorithmNameBlock();
     }
 
     /**
@@ -125,7 +125,7 @@ public class RFC5649WrapEngine
             System.arraycopy(iv, 0, paddedPlainTextWithIV, 0, iv.length);
             System.arraycopy(paddedPlaintext, 0, paddedPlainTextWithIV, iv.length, paddedPlaintext.length);
 
-            engine.init(true, param);
+            engine.initBlock(true, param);
             for (int i = 0, blockSize = engine.getBlockSize(); i < paddedPlainTextWithIV.length; i += blockSize)
             {
                 engine.processBlock(paddedPlainTextWithIV, i, paddedPlainTextWithIV, i);
@@ -176,7 +176,7 @@ public class RFC5649WrapEngine
         {
             // When there are exactly two 64-bit blocks of ciphertext,
             // they are decrypted as a single block using AES in ECB.
-            engine.init(false, param);
+            engine.initBlock(false, param);
             for (int i = 0, blockSize = engine.getBlockSize(); i < relevantCiphertext.length; i += blockSize)
             {
                 engine.processBlock(relevantCiphertext, i, decrypted, i);
@@ -264,7 +264,7 @@ public class RFC5649WrapEngine
         System.arraycopy(in, inOff, buf, 0, 8);
         System.arraycopy(in, inOff + 8, block, 0, inLen - 8);
 
-        engine.init(false, param);
+        engine.initBlock(false, param);
 
         int n = inLen / 8;
         n = n - 1;

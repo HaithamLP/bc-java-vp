@@ -31,7 +31,7 @@ public class G3413CBCBlockCipher
         this.cipher = cipher;
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         this.forEncryption = forEncryption;
@@ -55,7 +55,7 @@ public class G3413CBCBlockCipher
             // if null it's an IV changed only.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(forEncryption, ivParam.getParameters());
+                cipher.initBlock(forEncryption, ivParam.getParameters());
             }
         }
         else
@@ -68,7 +68,7 @@ public class G3413CBCBlockCipher
             // if it's null, key is to be reused.
             if (params != null)
             {
-                cipher.init(forEncryption, params);
+                cipher.initBlock(forEncryption, params);
             }
         }
 
@@ -93,9 +93,9 @@ public class G3413CBCBlockCipher
         this.m = blockSize;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/CBC";
+        return cipher.getAlgorithmNameBlock() + "/CBC";
     }
 
     public int getBlockSize()
@@ -166,12 +166,12 @@ public class G3413CBCBlockCipher
     }
 
 
-    public void reset()
+    public void resetBlock()
     {
         if (initialized)
         {
             System.arraycopy(R_init, 0, R, 0, R_init.length);
-            cipher.reset();
+            cipher.resetBlock();
         }
     }
 }

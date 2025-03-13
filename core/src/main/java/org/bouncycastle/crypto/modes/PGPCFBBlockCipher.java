@@ -62,15 +62,15 @@ public class PGPCFBBlockCipher
      * @return the name of the underlying algorithm followed by "/PGPCFB"
      * and the block size in bits.
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         if (inlineIv)
         {
-            return cipher.getAlgorithmName() + "/PGPCFBwithIV";
+            return cipher.getAlgorithmNameBlock() + "/PGPCFBwithIV";
         }
         else
         {
-            return cipher.getAlgorithmName() + "/PGPCFB";
+            return cipher.getAlgorithmNameBlock() + "/PGPCFB";
         }
     }
     
@@ -118,7 +118,7 @@ public class PGPCFBBlockCipher
      * reset the chaining vector back to the IV and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
         count = 0;
 
@@ -134,7 +134,7 @@ public class PGPCFBBlockCipher
             }
         }
 
-        cipher.reset();
+        cipher.resetBlock();
     }
 
     /**
@@ -148,7 +148,7 @@ public class PGPCFBBlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean forEncryption,
         CipherParameters params)
         throws IllegalArgumentException
@@ -174,15 +174,15 @@ public class PGPCFBBlockCipher
                     System.arraycopy(iv, 0, IV, 0, IV.length);
                 }
 
-                reset();
+                resetBlock();
 
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
         }
         else
         {
-                reset();
+                resetBlock();
 
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
         }
     }
     

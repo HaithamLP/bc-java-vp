@@ -36,7 +36,7 @@ public class NullEngine implements BlockCipher
     /* (non-Javadoc)
      * @see org.bouncycastle.crypto.BlockCipher#init(boolean, org.bouncycastle.crypto.CipherParameters)
      */
-    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException
+    public void initBlock(boolean forEncryption, CipherParameters params) throws IllegalArgumentException
     {
         // we don't mind any parameters that may come in
         this.initialised = true;
@@ -45,7 +45,7 @@ public class NullEngine implements BlockCipher
     /* (non-Javadoc)
      * @see org.bouncycastle.crypto.BlockCipher#getAlgorithmName()
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Null";
     }
@@ -89,7 +89,7 @@ public class NullEngine implements BlockCipher
     /* (non-Javadoc)
      * @see org.bouncycastle.crypto.BlockCipher#reset()
      */
-    public void reset()
+    public void resetBlock()
     {
         // nothing needs to be done
     }

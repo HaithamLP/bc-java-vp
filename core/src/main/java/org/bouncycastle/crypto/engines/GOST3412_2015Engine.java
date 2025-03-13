@@ -94,7 +94,7 @@ public class GOST3412_2015Engine
         return p;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "GOST3412_2015";
     }
@@ -104,7 +104,7 @@ public class GOST3412_2015Engine
         return BLOCK_SIZE;
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
 
@@ -337,7 +337,7 @@ public class GOST3412_2015Engine
         return x;
     }
 
-    public void reset()
+    public void resetBlock()
     {
 
     }

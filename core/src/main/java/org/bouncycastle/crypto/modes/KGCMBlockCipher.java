@@ -139,12 +139,12 @@ public class KGCMBlockCipher
 
         this.macBlock = new byte[blockSize];
         ctrEngine.init(true, new ParametersWithIV(engineParam, this.iv));
-        engine.init(true, engineParam);
+        engine.initBlock(true, engineParam);
     }
 
     public String getAlgorithmName()
     {
-        return engine.getAlgorithmName() + "/KGCM";
+        return engine.getAlgorithmNameBlock() + "/KGCM";
     }
 
     public BlockCipher getUnderlyingCipher()
@@ -312,7 +312,7 @@ public class KGCMBlockCipher
     {
         Arrays.fill(b, 0L);
 
-        engine.reset();
+        engine.resetBlock();
 
         data.reset();
         associatedText.reset();

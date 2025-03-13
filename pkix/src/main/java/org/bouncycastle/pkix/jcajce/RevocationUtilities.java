@@ -479,7 +479,7 @@ class RevocationUtilities
 
     private static boolean isDeltaCRL(X509CRL crl)
     {
-        Set critical = crl.getCriticalExtensionOIDs();
+        Set<String> critical = crl.getCriticalExtensionOIDs();
 
         return null == critical ? false : critical.contains(RFC3280CertPathUtilities.DELTA_CRL_INDICATOR);
     }

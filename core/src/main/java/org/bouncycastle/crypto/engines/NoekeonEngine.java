@@ -35,7 +35,7 @@ public class NoekeonEngine
         _initialised = false;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Noekeon";
     }
@@ -55,7 +55,7 @@ public class NoekeonEngine
      * @exception IllegalArgumentException
      *                if the params argument is inappropriate.
      */
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
     {
         if (!(params instanceof KeyParameter))
         {
@@ -97,14 +97,14 @@ public class NoekeonEngine
         this._initialised = true;
 
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                this.getAlgorithmName(), 128, params, Utils.getPurpose(forEncryption)));
+                this.getAlgorithmNameBlock(), 128, params, Utils.getPurpose(forEncryption)));
     }
 
     public int processBlock(byte[] in, int inOff, byte[] out, int outOff)
     {
         if (!_initialised)
         {
-            throw new IllegalStateException(getAlgorithmName() + " not initialised");
+            throw new IllegalStateException(getAlgorithmNameBlock() + " not initialised");
         }
         if (inOff > in.length - SIZE)
         {
@@ -118,7 +118,7 @@ public class NoekeonEngine
         return _forEncryption ? encryptBlock(in, inOff, out, outOff) : decryptBlock(in, inOff, out, outOff);
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

@@ -57,7 +57,7 @@ public class DefaultBufferedBlockCipher
         //
         // check if we can handle partial blocks on doFinal.
         //
-        String  name = cipher.getAlgorithmName();
+        String  name = cipher.getAlgorithmNameBlock();
         int     idx = name.indexOf('/') + 1;
 
         pgpCFB = (idx > 0 && name.startsWith("PGP", idx));
@@ -100,7 +100,7 @@ public class DefaultBufferedBlockCipher
 
         reset();
 
-        cipher.init(forEncryption, params);
+        cipher.initBlock(forEncryption, params);
     }
 
     /**
@@ -351,6 +351,6 @@ public class DefaultBufferedBlockCipher
         //
         // reset the underlying cipher.
         //
-        cipher.reset();
+        cipher.resetBlock();
     }
 }

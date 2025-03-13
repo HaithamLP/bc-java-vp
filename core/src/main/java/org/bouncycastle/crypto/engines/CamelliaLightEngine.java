@@ -537,10 +537,10 @@ public class CamelliaLightEngine
 
     public CamelliaLightEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity()));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity()));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Camellia";
     }
@@ -550,7 +550,7 @@ public class CamelliaLightEngine
         return BLOCK_SIZE;
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
     {
         if (!(params instanceof KeyParameter))
         {
@@ -560,7 +560,7 @@ public class CamelliaLightEngine
         setKey(forEncryption, ((KeyParameter)params).getKey());
         initialized = true;
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
     }
 
     public int processBlock(byte[] in, int inOff,
@@ -593,7 +593,7 @@ public class CamelliaLightEngine
         }
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

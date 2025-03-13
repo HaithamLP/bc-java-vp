@@ -35,7 +35,7 @@ public class G3413OFBBlockCipher
         Y = new byte[blockSize];
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         if (params instanceof ParametersWithIV)
@@ -59,7 +59,7 @@ public class G3413OFBBlockCipher
             // if null it's an IV changed only.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
             }
 
 
@@ -75,7 +75,7 @@ public class G3413OFBBlockCipher
             // if it's null, key is to be reused.
             if (params != null)
             {
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
             }
         }
 
@@ -101,9 +101,9 @@ public class G3413OFBBlockCipher
         this.m = 2 * blockSize;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/OFB";
+        return cipher.getAlgorithmNameBlock() + "/OFB";
     }
 
     public int getBlockSize()
@@ -160,14 +160,30 @@ public class G3413OFBBlockCipher
     }
 
 
-    public void reset()
+    public void resetBlock()
     {
         if (initialized)
         {
             System.arraycopy(R_init, 0, R, 0, R_init.length);
             Arrays.clear(Y);
             byteCount = 0;
-            cipher.reset();
+            cipher.resetBlock();
         }
+    }
+
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

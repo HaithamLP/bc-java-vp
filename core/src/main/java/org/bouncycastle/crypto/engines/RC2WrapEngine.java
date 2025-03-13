@@ -175,7 +175,7 @@ public class RC2WrapEngine
             throw new IllegalStateException("Not multiple of block length");
         }
 
-        engine.init(true, paramPlusIV);
+        engine.initBlock(true, paramPlusIV);
 
         for (int i = 0; i < noOfBlocks; i++)
         {
@@ -204,7 +204,7 @@ public class RC2WrapEngine
         // result. It is 40 octets long if a 168 bit key is being wrapped.
         ParametersWithIV param2 = new ParametersWithIV(this.param, IV2);
 
-        this.engine.init(true, param2);
+        this.engine.initBlock(true, param2);
 
         for (int i = 0; i < noOfBlocks + 1; i++)
         {
@@ -263,7 +263,7 @@ public class RC2WrapEngine
         // output TEMP3.
         ParametersWithIV param2 = new ParametersWithIV(this.param, IV2);
 
-        this.engine.init(false, param2);
+        this.engine.initBlock(false, param2);
 
         byte TEMP3[] = new byte[inLen];
 
@@ -297,7 +297,7 @@ public class RC2WrapEngine
         // found in the previous step. Call the result WKCKS.
         this.paramPlusIV = new ParametersWithIV(this.param, this.iv);
 
-        this.engine.init(false, this.paramPlusIV);
+        this.engine.initBlock(false, this.paramPlusIV);
 
         byte[] LCEKPADICV = new byte[TEMP1.length];
 

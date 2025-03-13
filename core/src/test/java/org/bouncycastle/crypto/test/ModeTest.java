@@ -46,11 +46,11 @@ public class ModeTest
 
         BlockCipher ofb = new OFBBlockCipher(new DESEngine(), 32);
 
-        ofb.init(true, new ParametersWithIV(key, Hex.decode("1122334455667788")));
+        ofb.initBlock(true, new ParametersWithIV(key, Hex.decode("1122334455667788")));
 
         ofb.processBlock(input, 0, out1, 0);
 
-        ofb.init(false, new ParametersWithIV(key, Hex.decode("1122334455667788")));
+        ofb.initBlock(false, new ParametersWithIV(key, Hex.decode("1122334455667788")));
         ofb.processBlock(out1, 0, out2, 0);
 
         if (!isEqualTo(out2, input))
@@ -58,11 +58,11 @@ public class ModeTest
             return new SimpleTestResult(false, getName() + ": test 1 - in != out");
         }
 
-        ofb.init(true, new ParametersWithIV(key, Hex.decode("11223344")));
+        ofb.initBlock(true, new ParametersWithIV(key, Hex.decode("11223344")));
 
         ofb.processBlock(input, 0, out1, 0);
 
-        ofb.init(false, new ParametersWithIV(key, Hex.decode("0000000011223344")));
+        ofb.initBlock(false, new ParametersWithIV(key, Hex.decode("0000000011223344")));
         ofb.processBlock(out1, 0, out2, 0);
 
         if (!isEqualTo(out2, input))
@@ -72,11 +72,11 @@ public class ModeTest
 
         BlockCipher cfb = new CFBBlockCipher(new DESEngine(), 32);
 
-        cfb.init(true, new ParametersWithIV(key, Hex.decode("1122334455667788")));
+        cfb.initBlock(true, new ParametersWithIV(key, Hex.decode("1122334455667788")));
 
         cfb.processBlock(input, 0, out1, 0);
 
-        cfb.init(false, new ParametersWithIV(key, Hex.decode("1122334455667788")));
+        cfb.initBlock(false, new ParametersWithIV(key, Hex.decode("1122334455667788")));
         cfb.processBlock(out1, 0, out2, 0);
 
         if (!isEqualTo(out2, input))
@@ -84,11 +84,11 @@ public class ModeTest
             return new SimpleTestResult(false, getName() + ": test 3 - in != out");
         }
 
-        cfb.init(true, new ParametersWithIV(key, Hex.decode("11223344")));
+        cfb.initBlock(true, new ParametersWithIV(key, Hex.decode("11223344")));
 
         cfb.processBlock(input, 0, out1, 0);
 
-        cfb.init(false, new ParametersWithIV(key, Hex.decode("0000000011223344")));
+        cfb.initBlock(false, new ParametersWithIV(key, Hex.decode("0000000011223344")));
         cfb.processBlock(out1, 0, out2, 0);
 
         if (!isEqualTo(out2, input))

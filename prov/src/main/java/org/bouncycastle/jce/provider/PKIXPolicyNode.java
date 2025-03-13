@@ -1,6 +1,7 @@
 package org.bouncycastle.jce.provider;
 
 import java.security.cert.PolicyNode;
+import java.security.cert.PolicyQualifierInfo;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,11 +11,11 @@ import java.util.Set;
 public class PKIXPolicyNode
     implements PolicyNode
 {
-    protected List       children;
+    protected List<PolicyNode>       children;
     protected int        depth;
-    protected Set        expectedPolicies;
+    protected Set<String>        expectedPolicies;
     protected PolicyNode parent;
-    protected Set        policyQualifiers;
+    protected Set<PolicyQualifierInfo>        policyQualifiers;
     protected String     validPolicy;
     protected boolean    critical;
     
@@ -49,7 +50,7 @@ public class PKIXPolicyNode
         _child.setParent(this);
     }
     
-    public Iterator getChildren()
+    public Iterator<PolicyNode> getChildren()
     {
         return children.iterator();
     }
@@ -59,7 +60,7 @@ public class PKIXPolicyNode
         return depth;
     }
 
-    public Set getExpectedPolicies()
+    public Set<String> getExpectedPolicies()
     {
         return expectedPolicies;
     }
@@ -69,7 +70,7 @@ public class PKIXPolicyNode
         return parent;
     }
 
-    public Set getPolicyQualifiers()
+    public Set<PolicyQualifierInfo> getPolicyQualifiers()
     {
         return policyQualifiers;
     }

@@ -752,7 +752,7 @@ public class AESFastEngine
      */
     public AESFastEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 256));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 256));
     }
 
     /**
@@ -763,7 +763,7 @@ public class AESFastEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           forEncryption,
         CipherParameters  params)
     {
@@ -771,14 +771,14 @@ public class AESFastEngine
         {
             WorkingKey = generateWorkingKey(((KeyParameter)params).getKey(), forEncryption);
             this.forEncryption = forEncryption;
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
             return;
         }
 
         throw new IllegalArgumentException("invalid parameter passed to AES init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "AES";
     }
@@ -817,7 +817,7 @@ public class AESFastEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

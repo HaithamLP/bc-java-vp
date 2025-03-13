@@ -23,7 +23,7 @@ import org.bouncycastle.util.Selector;
  * @see org.bouncycastle.util.Selector
  */
 public class PKIXCRLStoreSelector<T extends CRL>
-    implements Selector<T>
+    implements Selector
 {
     /**
      * Builder for a PKIXCRLStoreSelector.
@@ -177,11 +177,11 @@ public class PKIXCRLStoreSelector<T extends CRL>
 
 
 
-    public boolean match(CRL obj)
+    public boolean match(Object obj)
     {
         if (!(obj instanceof X509CRL))
         {
-            return baseSelector.match(obj);
+            return baseSelector.match((CRL) obj);
         }
 
         X509CRL crl = (X509CRL)obj;
@@ -244,7 +244,7 @@ public class PKIXCRLStoreSelector<T extends CRL>
             }
 
         }
-        return baseSelector.match(obj);
+        return baseSelector.match((CRL) obj);
     }
 
     /**

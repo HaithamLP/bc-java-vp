@@ -176,15 +176,15 @@ public class SEEDEngine
     private int[] wKey;
     private boolean forEncryption;
 
-    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException
+    public void initBlock(boolean forEncryption, CipherParameters params) throws IllegalArgumentException
     {
         this.forEncryption = forEncryption;
         wKey = createWorkingKey(((KeyParameter)params).getKey());
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                    this.getAlgorithmName(), 128, params, Utils.getPurpose(forEncryption)));
+                    this.getAlgorithmNameBlock(), 128, params, Utils.getPurpose(forEncryption)));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "SEED";
     }
@@ -241,7 +241,7 @@ public class SEEDEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

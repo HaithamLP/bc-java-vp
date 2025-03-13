@@ -104,7 +104,7 @@ public class CBCBlockCipherMac
 
     public String getAlgorithmName()
     {
-        return cipher.getAlgorithmName();
+        return cipher.getAlgorithmNameBlock();
     }
 
     public void init(
@@ -112,7 +112,7 @@ public class CBCBlockCipherMac
     {
         reset();
 
-        cipher.init(true, params);
+        cipher.initBlock(true, params);
     }
 
     public int getMacSize()
@@ -224,6 +224,6 @@ public class CBCBlockCipherMac
         /*
          * reset the underlying cipher.
          */
-        cipher.reset();
+        cipher.resetBlock();
     }
 }

@@ -79,7 +79,7 @@ public abstract class CipherTest
         byte[] correctBuf = new byte[engine.getBlockSize()];
         byte[] shortBuf = new byte[correctBuf.length / 2];
 
-        engine.init(true, _validKey);
+        engine.initBlock(true, _validKey);
 
         try
         {
@@ -103,7 +103,7 @@ public abstract class CipherTest
             // expected 
         }
 
-        engine.init(false, _validKey);
+        engine.initBlock(false, _validKey);
 
         try
         {

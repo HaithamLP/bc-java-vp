@@ -1324,7 +1324,7 @@ public class PKIXCertPathReviewer extends CertPathValidatorUtilities
                     //
                     // d (4)
                     //
-                    Set criticalExtensionOids = cert.getCriticalExtensionOIDs();
+                    Set<String> criticalExtensionOids = cert.getCriticalExtensionOIDs();
 
                     if (criticalExtensionOids != null)
                     {
@@ -1815,7 +1815,7 @@ public class PKIXCertPathReviewer extends CertPathValidatorUtilities
             {
                 cert = (X509Certificate) certs.get(index);
                 
-                Set criticalExtensions = cert.getCriticalExtensionOIDs();
+                Set<String> criticalExtensions = cert.getCriticalExtensionOIDs();
                 if (criticalExtensions == null || criticalExtensions.isEmpty())
                 {
                     continue;

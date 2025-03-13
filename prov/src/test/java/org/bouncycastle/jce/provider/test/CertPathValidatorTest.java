@@ -1168,11 +1168,11 @@ public class CertPathValidatorTest
             return getAlternativeNames(getExtensionBytes(Extension.issuerAlternativeName.getId()));
         }
 
-        public Set getCriticalExtensionOIDs()
+        public Set<String> getCriticalExtensionOIDs()
         {
             if (this.getVersion() == 3)
             {
-                Set set = new HashSet();
+                Set<String> set = new HashSet<String>();
                 DodgyExtensions extensions = c.getTBSCertificate().getExtensions();
 
                 if (extensions != null)
@@ -1237,11 +1237,11 @@ public class CertPathValidatorTest
             return null;
         }
 
-        public Set getNonCriticalExtensionOIDs()
+        public Set<String> getNonCriticalExtensionOIDs()
         {
             if (this.getVersion() == 3)
             {
-                Set set = new HashSet();
+                Set<String> set = new HashSet<String>();
                 DodgyExtensions  extensions = c.getTBSCertificate().getExtensions();
 
                 if (extensions != null)

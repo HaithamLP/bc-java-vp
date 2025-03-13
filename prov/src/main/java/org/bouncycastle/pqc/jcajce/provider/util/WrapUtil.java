@@ -55,10 +55,10 @@ public class WrapUtil
     public static Wrapper getWrapper(String keyAlgorithmName)
     {
         Wrapper kWrap;
-           
+
         if (keyAlgorithmName.equalsIgnoreCase("AESWRAP") || keyAlgorithmName.equalsIgnoreCase("AES"))
         {
-            kWrap = new RFC3394WrapEngine(AESEngine.newInstance());
+            kWrap = new RFC3394WrapEngine(new AESEngine());
         }
         else if (keyAlgorithmName.equalsIgnoreCase("ARIA"))
         {

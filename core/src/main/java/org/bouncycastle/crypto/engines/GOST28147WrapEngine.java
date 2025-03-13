@@ -25,7 +25,7 @@ public class GOST28147WrapEngine
         
         ParametersWithUKM pU = (ParametersWithUKM)param;
 
-        cipher.init(forWrapping, pU.getParameters());
+        cipher.initBlock(forWrapping, pU.getParameters());
 
         mac.init(new ParametersWithIV(pU.getParameters(), pU.getUKM()));
     }

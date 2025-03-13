@@ -149,10 +149,10 @@ public class ARIAEngine
     boolean forEncryption;
     public ARIAEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 256));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 256));
     }
 
-    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException
+    public void initBlock(boolean forEncryption, CipherParameters params) throws IllegalArgumentException
     {
         if (!(params instanceof KeyParameter))
         {
@@ -162,10 +162,10 @@ public class ARIAEngine
 
         this.forEncryption = forEncryption;
         this.roundKeys = keySchedule(forEncryption, ((KeyParameter)params).getKey());
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "ARIA";
     }
@@ -211,7 +211,7 @@ public class ARIAEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
         // Empty
     }

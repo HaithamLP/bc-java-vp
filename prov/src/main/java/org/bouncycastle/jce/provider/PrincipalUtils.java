@@ -1,15 +1,13 @@
 package org.bouncycastle.jce.provider;
 
-import java.security.cert.TrustAnchor;
-import java.security.cert.X509CRL;
-import java.security.cert.X509Certificate;
-
-import javax.security.auth.x500.X500Principal;
-
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameStyle;
 import org.bouncycastle.jcajce.interfaces.BCX509Certificate;
-import org.bouncycastle.x509.X509AttributeCertificate;
+
+import javax.security.auth.x500.X500Principal;
+import java.security.cert.TrustAnchor;
+import java.security.cert.X509CRL;
+import java.security.cert.X509Certificate;
 
 class PrincipalUtils
 {
@@ -30,10 +28,7 @@ class PrincipalUtils
         {
             return getIssuerPrincipal((X509Certificate)cert);
         }
-        else
-        {
-            return getX500Name((X500Principal)((X509AttributeCertificate)cert).getIssuer().getPrincipals()[0]);
-        }
+        else  return  null;
     }
 
     static X500Name getIssuerPrincipal(X509Certificate certificate)

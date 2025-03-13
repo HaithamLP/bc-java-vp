@@ -59,9 +59,9 @@ public class OpenPGPCFBBlockCipher
      * @return the name of the underlying algorithm followed by "/OpenPGPCFB"
      * and the block size in bits.
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/OpenPGPCFB";
+        return cipher.getAlgorithmNameBlock() + "/OpenPGPCFB";
     }
     
     /**
@@ -101,13 +101,13 @@ public class OpenPGPCFBBlockCipher
      * reset the chaining vector back to the IV and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
         count = 0;
 
         System.arraycopy(IV, 0, FR, 0, FR.length);
 
-        cipher.reset();
+        cipher.resetBlock();
     }
 
     /**
@@ -121,16 +121,16 @@ public class OpenPGPCFBBlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean forEncryption,
         CipherParameters params)
         throws IllegalArgumentException
     {
         this.forEncryption = forEncryption;
      
-        reset();
+        resetBlock();
 
-        cipher.init(true, params);
+        cipher.initBlock(true, params);
     }
     
     /**

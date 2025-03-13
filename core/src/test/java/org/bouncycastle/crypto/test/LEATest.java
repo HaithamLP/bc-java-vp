@@ -57,7 +57,7 @@ public class LEATest
         final byte[] myData = Hex.decode(pData);
 
         /* Initialise the cipher */
-        pCipher.init(true, myKey);
+        pCipher.initBlock(true, myKey);
         pCipher.processBlock(myData, 0, myOutput, 0);
 
         /* Check the encryption */
@@ -65,7 +65,7 @@ public class LEATest
         isTrue("Encryption mismatch", Arrays.areEqual(myExpected, myOutput));
 
         /* Initialise the cipher */
-        pCipher.init(false, myKey);
+        pCipher.initBlock(false, myKey);
         pCipher.processBlock(myOutput, 0, myFinal, 0);
         isTrue("Decryption mismatch", Arrays.areEqual(myData, myFinal));
     }
@@ -191,7 +191,7 @@ public class LEATest
                     LEAEngine engine = new LEAEngine();
                     if (line.endsWith("Encrypt"))
                     {
-                        engine.init(true, new KeyParameter(key));
+                        engine.initBlock(true, new KeyParameter(key));
                         byte[] result = new byte[cipherText.length];
                         int l = 0;
                         while (l < result.length)
@@ -203,7 +203,7 @@ public class LEATest
                     }
                     else if (line.endsWith("Decrypt"))
                     {
-                        engine.init(false, new KeyParameter(key));
+                        engine.initBlock(false, new KeyParameter(key));
                         byte[] result = new byte[plainText.length];
                         int l = 0;
 
@@ -231,7 +231,7 @@ public class LEATest
                     }
                     if (line.endsWith("Encrypt"))
                     {
-                        engine.init(true, new ParametersWithIV(new KeyParameter(key), iv));
+                        engine.initBlock(true, new ParametersWithIV(new KeyParameter(key), iv));
                         byte[] result = new byte[cipherText.length];
                         int l = 0;
                         while (l < result.length)
@@ -243,7 +243,7 @@ public class LEATest
                     }
                     else if (line.endsWith("Decrypt"))
                     {
-                        engine.init(false, new ParametersWithIV(new KeyParameter(key), iv));
+                        engine.initBlock(false, new ParametersWithIV(new KeyParameter(key), iv));
                         byte[] result = new byte[plainText.length];
                         int l = 0;
 

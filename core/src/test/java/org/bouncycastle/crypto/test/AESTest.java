@@ -269,7 +269,7 @@ public class AESTest
         CipherParameters params = new ParametersWithIV(new KeyParameter(Hex.decode("5F060D3716B345C253F6749ABAC10917")), Hex.decode("00000000000000000000000000000000"));
         CTRModeCipher engine = SICBlockCipher.newInstance(AESEngine.newInstance());
 
-        engine.init(true, params);
+        engine.initBlock(true, params);
 
         SecureRandom rand = new SecureRandom();
         byte[]       plain = new byte[50000];
@@ -280,7 +280,7 @@ public class AESTest
 
         byte[]      fragment = new byte[20];
 
-        engine.init(true, params);
+        engine.initBlock(true, params);
 
         engine.skip(10);
 
@@ -352,7 +352,7 @@ public class AESTest
             fail("seek to 1010 failed");
         }
 
-        engine.reset();
+        engine.resetBlock();
 
         for (int i = 0; i != 5000; i++)
         {
@@ -389,7 +389,7 @@ public class AESTest
                 fail("skip back i failed: " + i);
             }
 
-            engine.reset();
+            engine.resetBlock();
         }
     }
 
@@ -398,7 +398,7 @@ public class AESTest
         CipherParameters params = new ParametersWithIV(new KeyParameter(Hex.decode("5F060D3716B345C253F6749ABAC10917")), Hex.decode("000000000000000000000000000000"));
         CTRModeCipher engine = SICBlockCipher.newInstance(AESEngine.newInstance());
 
-        engine.init(true, params);
+        engine.initBlock(true, params);
 
         SecureRandom rand = new SecureRandom();
         byte[]       cipher = new byte[256 * 16 + 1];
@@ -407,10 +407,10 @@ public class AESTest
         rand.nextBytes(plain);
         engine.processBytes(plain, 0, plain.length, cipher, 0);
 
-        engine.init(true, params);
+        engine.initBlock(true, params);
 
         plain = new byte[256 * 16 + 1];
-        engine.init(true, params);
+        engine.initBlock(true, params);
 
         try
         {
@@ -434,7 +434,7 @@ public class AESTest
         byte[] key = new byte[16];
 
         Arrays.fill(iv, (byte)0x0a);
-        cipher.init(true, new ParametersWithIV(new KeyParameter(key), iv));
+        cipher.initBlock(true, new ParametersWithIV(new KeyParameter(key), iv));
 
         int lastBlock = 255; // the last block
         cipher.seekTo((lastBlock * 16));
@@ -475,7 +475,7 @@ public class AESTest
         for (int fragmentLength = 1; fragmentLength < 16; ++fragmentLength)
         {
             byte[] fragment = new byte[fragmentLength];
-            engine.init(true, new ParametersWithIV(kp, new byte[16]));
+            engine.initBlock(true, new ParametersWithIV(kp, new byte[16]));
 
             int inPos = 0, outPos = 0;
             do
@@ -501,7 +501,7 @@ public class AESTest
 
         byte[] keyBytes = new byte[16];
         
-        _engine.init(true, new KeyParameter(keyBytes));
+        _engine.initBlock(true, new KeyParameter(keyBytes));
         
         //
         // init tests
@@ -510,7 +510,7 @@ public class AESTest
         {
             byte[]      dudKey = new byte[6];
             
-            _engine.init(true, new KeyParameter(dudKey));
+            _engine.initBlock(true, new KeyParameter(dudKey));
             
             fail("failed key length check");
         }
@@ -523,7 +523,7 @@ public class AESTest
         {
             byte[]      iv = new byte[16];
 
-            _engine.init(true, new ParametersWithIV(null, iv));
+            _engine.initBlock(true, new ParametersWithIV(null, iv));
             
             fail("failed parameter check");
         }
@@ -592,7 +592,7 @@ public class AESTest
         SICBlockCipher sicBlockCipher = new SICBlockCipher(new AESEngine());
         byte[] key = "1234567890123456".getBytes();
         ParametersWithIV parametersWithIV = new ParametersWithIV(new KeyParameter(key), iv);
-        sicBlockCipher.init(true, parametersWithIV);
+        sicBlockCipher.initBlock(true, parametersWithIV);
         return sicBlockCipher;
     }
 

@@ -154,7 +154,7 @@ class Utils
         CTRModeCipher ctrCipher = SICBlockCipher.newInstance(aesEngine);
         // Wrap the key with the IV.
         ParametersWithIV params = new ParametersWithIV(new KeyParameter(Arrays.copyOf(seed_pk, p.getPkSeedBytes())), iv);
-        ctrCipher.init(true, params);
+        ctrCipher.initBlock(true, params);
 
         // CTR mode is a stream cipher: encrypting zero bytes produces the keystream.
         int blockSize = ctrCipher.getBlockSize(); // typically 16 bytes

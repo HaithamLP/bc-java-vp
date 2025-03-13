@@ -1,77 +1,13 @@
 package org.bouncycastle.jce.provider;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URI;
-import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.cert.CRLException;
-import java.security.cert.CertPath;
-import java.security.cert.CertPathBuilderException;
-import java.security.cert.CertPathValidatorException;
-import java.security.cert.CertStore;
-import java.security.cert.CertStoreException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
-import java.security.cert.CertificateParsingException;
-import java.security.cert.PolicyQualifierInfo;
-import java.security.cert.TrustAnchor;
-import java.security.cert.X509CRL;
-import java.security.cert.X509CRLEntry;
-import java.security.cert.X509CRLSelector;
-import java.security.cert.X509CertSelector;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.DSAParams;
-import java.security.interfaces.DSAPublicKey;
-import java.security.spec.DSAPublicKeySpec;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.security.auth.x500.X500Principal;
-
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.ASN1Enumerated;
-import org.bouncycastle.asn1.ASN1GeneralizedTime;
-import org.bouncycastle.asn1.ASN1Integer;
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.ASN1OctetString;
-import org.bouncycastle.asn1.ASN1OutputStream;
-import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.ASN1String;
-import org.bouncycastle.asn1.DEROctetString;
+import org.bouncycastle.asn1.*;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.style.RFC4519Style;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
-import org.bouncycastle.asn1.x509.CRLDistPoint;
 import org.bouncycastle.asn1.x509.CRLReason;
-import org.bouncycastle.asn1.x509.DistributionPoint;
-import org.bouncycastle.asn1.x509.DistributionPointName;
 import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.asn1.x509.GeneralName;
-import org.bouncycastle.asn1.x509.GeneralNames;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.asn1.x509.*;
 import org.bouncycastle.internal.asn1.isismtt.ISISMTTObjectIdentifiers;
-import org.bouncycastle.jcajce.PKIXCRLStore;
-import org.bouncycastle.jcajce.PKIXCRLStoreSelector;
-import org.bouncycastle.jcajce.PKIXCertRevocationCheckerParameters;
-import org.bouncycastle.jcajce.PKIXCertStore;
-import org.bouncycastle.jcajce.PKIXCertStoreSelector;
-import org.bouncycastle.jcajce.PKIXExtendedBuilderParameters;
-import org.bouncycastle.jcajce.PKIXExtendedParameters;
+import org.bouncycastle.jcajce.*;
 import org.bouncycastle.jcajce.util.JcaJceHelper;
 import org.bouncycastle.jce.exception.ExtCertPathBuilderException;
 import org.bouncycastle.jce.exception.ExtCertPathValidatorException;
@@ -79,7 +15,23 @@ import org.bouncycastle.util.Properties;
 import org.bouncycastle.util.Selector;
 import org.bouncycastle.util.Store;
 import org.bouncycastle.util.StoreException;
-import org.bouncycastle.x509.X509AttributeCertificate;
+
+import javax.security.auth.x500.X500Principal;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.net.URI;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.security.cert.PolicyQualifierInfo;
+import java.security.cert.*;
+import java.security.interfaces.DSAParams;
+import java.security.interfaces.DSAPublicKey;
+import java.security.spec.DSAPublicKeySpec;
+import java.text.ParseException;
+import java.util.*;
 
 class CertPathValidatorUtilities
 {
@@ -1288,27 +1240,19 @@ class CertPathValidatorUtilities
     {
         if (crls.isEmpty())
         {
-            if (cert instanceof X509AttributeCertificate)
-            {
-                X509AttributeCertificate aCert = (X509AttributeCertificate)cert;
 
-                throw new RecoverableCertPathValidatorException("No CRLs found for issuer \"" + aCert.getIssuer().getPrincipals()[0] + "\"", null,
-                                params.getCertPath(), params.getIndex());
-            }
-            else
-            {
                 X509Certificate xCert = (X509Certificate)cert;
 
                 throw new RecoverableCertPathValidatorException("No CRLs found for issuer \"" + RFC4519Style.INSTANCE.toString(PrincipalUtils.getIssuerPrincipal(xCert)) + "\"", null,
                     params.getCertPath(), params.getIndex());
-            }
+
         }
     }
 
     static void checkCRLCriticalExtensions(X509CRL crl, String exceptionMessage)
         throws AnnotatedException
     {
-        Set criticalExtensions = crl.getCriticalExtensionOIDs();
+        Set<String> criticalExtensions = crl.getCriticalExtensionOIDs();
         if (criticalExtensions != null)
         {
             int count = criticalExtensions.size();
@@ -1363,7 +1307,7 @@ class CertPathValidatorUtilities
         return hasCriticalExtension(crl.getCriticalExtensionOIDs(), extensionOID);
     }
 
-    private static boolean hasCriticalExtension(Set criticalExtensionOIDs, String extensionOID)
+    private static boolean hasCriticalExtension(Set<String> criticalExtensionOIDs, String extensionOID)
     {
         return criticalExtensionOIDs != null && criticalExtensionOIDs.contains(extensionOID);
     }

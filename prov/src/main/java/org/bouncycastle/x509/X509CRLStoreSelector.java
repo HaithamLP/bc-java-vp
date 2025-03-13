@@ -34,7 +34,6 @@ public class X509CRLStoreSelector
 
     private boolean issuingDistributionPointEnabled = false;
 
-    private X509AttributeCertificate attrCertChecking;
 
     /**
      * Returns if the issuing distribution point criteria should be applied.
@@ -62,32 +61,9 @@ public class X509CRLStoreSelector
         this.issuingDistributionPointEnabled = issuingDistributionPointEnabled;
     }
 
-    /**
-     * Sets the attribute certificate being checked. This is not a criterion.
-     * Rather, it is optional information that may help a {@link X509Store} find
-     * CRLs that would be relevant when checking revocation for the specified
-     * attribute certificate. If <code>null</code> is specified, then no such
-     * optional information is provided.
-     * 
-     * @param attrCert the <code>X509AttributeCertificate</code> being checked (or
-     *            <code>null</code>)
-     * @see #getAttrCertificateChecking()
-     */
-    public void setAttrCertificateChecking(X509AttributeCertificate attrCert)
-    {
-        attrCertChecking = attrCert;
-    }
 
-    /**
-     * Returns the attribute certificate being checked.
-     * 
-     * @return Returns the attribute certificate being checked.
-     * @see #setAttrCertificateChecking(X509AttributeCertificate)
-     */
-    public X509AttributeCertificate getAttrCertificateChecking()
-    {
-        return attrCertChecking;
-    }
+
+
 
     public boolean match(Object obj)
     {
@@ -231,7 +207,6 @@ public class X509CRLStoreSelector
         sel.deltaCRLIndicator = deltaCRLIndicator;
         sel.completeCRLEnabled = completeCRLEnabled;
         sel.maxBaseCRLNumber = maxBaseCRLNumber;
-        sel.attrCertChecking = attrCertChecking;
         sel.issuingDistributionPointEnabled = issuingDistributionPointEnabled;
         sel.issuingDistributionPoint = Arrays.clone(issuingDistributionPoint);
         return sel;

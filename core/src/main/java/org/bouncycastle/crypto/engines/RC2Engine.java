@@ -115,7 +115,7 @@ public class RC2Engine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           encrypting,
         CipherParameters  params)
     {
@@ -140,14 +140,14 @@ public class RC2Engine
             throw new IllegalArgumentException("invalid parameter passed to RC2 init - " + params.getClass().getName());
         }
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), key.length * 8, params, Utils.getPurpose(encrypting)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), key.length * 8, params, Utils.getPurpose(encrypting)));
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "RC2";
     }

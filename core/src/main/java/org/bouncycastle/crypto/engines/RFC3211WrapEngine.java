@@ -66,7 +66,7 @@ public class RFC3211WrapEngine
 
     public String getAlgorithmName()
     {
-        return engine.getUnderlyingCipher().getAlgorithmName() + "/RFC3211Wrap";
+        return engine.getUnderlyingCipher().getAlgorithmNameBlock() + "/RFC3211Wrap";
     }
 
     public byte[] wrap(
@@ -84,7 +84,7 @@ public class RFC3211WrapEngine
             throw new IllegalArgumentException("input must be from 0 to 255 bytes");
         }
         
-        engine.init(true, param);
+        engine.initBlock(true, param);
 
         int blockSize = engine.getBlockSize();
         byte[] cekBlock;
@@ -148,7 +148,7 @@ public class RFC3211WrapEngine
         System.arraycopy(in, inOff, cekBlock, 0, inLen);
         System.arraycopy(in, inOff, iv, 0, iv.length);
         
-        engine.init(false, new ParametersWithIV(param.getParameters(), iv));
+        engine.initBlock(false, new ParametersWithIV(param.getParameters(), iv));
 
         for (int i = blockSize; i < cekBlock.length; i += blockSize)
         {
@@ -157,11 +157,11 @@ public class RFC3211WrapEngine
 
         System.arraycopy(cekBlock, cekBlock.length - iv.length, iv, 0, iv.length);
 
-        engine.init(false, new ParametersWithIV(param.getParameters(), iv));
+        engine.initBlock(false, new ParametersWithIV(param.getParameters(), iv));
 
         engine.processBlock(cekBlock, 0, cekBlock, 0);
 
-        engine.init(false, param);
+        engine.initBlock(false, param);
 
         for (int i = 0; i < cekBlock.length; i += blockSize)
         {

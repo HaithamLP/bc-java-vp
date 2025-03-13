@@ -131,7 +131,7 @@ public class KCCMBlockCipher
 
         this.mac = new byte[macSize];
         this.forEncryption = forEncryption;
-        engine.init(true, cipherParameters);
+        engine.initBlock(true, cipherParameters);
 
         counter[0] = 0x01; // defined in standard
 
@@ -143,7 +143,7 @@ public class KCCMBlockCipher
 
     public String getAlgorithmName()
     {
-        return engine.getAlgorithmName() + "/KCCM";
+        return engine.getAlgorithmNameBlock() + "/KCCM";
     }
 
     public BlockCipher getUnderlyingCipher()

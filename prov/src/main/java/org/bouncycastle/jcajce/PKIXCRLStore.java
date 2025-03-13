@@ -22,6 +22,6 @@ public interface PKIXCRLStore<T extends CRL>
      * @return a collection of matches with the selector, an empty selector if there are none.
      * @throws StoreException in the event of an issue doing a match.
      */
-    Collection<T> getMatches(Selector<T> selector)
+    Collection<T> getMatches(Selector selector)
         throws StoreException;
 }

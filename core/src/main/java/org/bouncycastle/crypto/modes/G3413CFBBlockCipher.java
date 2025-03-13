@@ -69,7 +69,7 @@ public class G3413CFBBlockCipher
      * @param params        the key and other data required by the cipher.
      * @throws IllegalArgumentException
      */
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         this.forEncryption = forEncryption;
@@ -94,7 +94,7 @@ public class G3413CFBBlockCipher
             // if null it's an IV changed only.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
             }
         }
         else
@@ -108,7 +108,7 @@ public class G3413CFBBlockCipher
             // if it's null, key is to be reused.
             if (params != null)
             {
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
             }
         }
 
@@ -135,9 +135,9 @@ public class G3413CFBBlockCipher
     }
 
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/CFB" + (blockSize * 8);
+        return cipher.getAlgorithmNameBlock() + "/CFB" + (blockSize * 8);
     }
 
     public int getBlockSize()
@@ -202,7 +202,7 @@ public class G3413CFBBlockCipher
      * copy R_init into R and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
 
         byteCount = 0;
@@ -213,7 +213,23 @@ public class G3413CFBBlockCipher
         {
             System.arraycopy(R_init, 0, R, 0, R_init.length);
 
-            cipher.reset();
+            cipher.resetBlock();
         }
+    }
+
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

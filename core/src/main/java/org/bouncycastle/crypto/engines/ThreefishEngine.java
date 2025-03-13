@@ -159,7 +159,7 @@ public class ThreefishEngine
      * @param params an instance of {@link TweakableBlockCipherParameters}, or {@link KeyParameter} (to
      *               use a 0 tweak)
      */
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         final byte[] keyBytes;
@@ -207,7 +207,7 @@ public class ThreefishEngine
         init(forEncryption, keyWords, tweakWords);
 
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-            this.getAlgorithmName(), 256, params, Utils.getPurpose(forEncryption)));
+            this.getAlgorithmNameBlock(), 256, params, Utils.getPurpose(forEncryption)));
     }
 
     /**
@@ -273,7 +273,7 @@ public class ThreefishEngine
         t[4] = t[1];
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Threefish-" + (blocksizeBytes * 8);
     }
@@ -283,7 +283,7 @@ public class ThreefishEngine
         return blocksizeBytes;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

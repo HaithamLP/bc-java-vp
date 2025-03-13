@@ -112,7 +112,7 @@ class CertPathValidatorUtilities
         }
         else
         {
-            return (X500Principal)((X509AttributeCertificate)cert).getIssuer().getPrincipals()[0];
+            return null;
         }
     }
 
@@ -492,7 +492,6 @@ class CertPathValidatorUtilities
      * @param certStores a List containing only {@link X509Store} objects. These
      *                   are used to search for certificates.
      * @return a Collection of all found {@link X509Certificate} or
-     *         {@link org.bouncycastle.x509.X509AttributeCertificate} objects.
      *         May be empty but never <code>null</code>.
      */
     protected static Collection findCertificates(X509CertStoreSelector certSelect,
@@ -609,33 +608,7 @@ class CertPathValidatorUtilities
         return certs;
     }
 
-    protected static Collection findCertificates(X509AttributeCertStoreSelector certSelect,
-                                                 List certStores)
-        throws AnnotatedException
-    {
-        Set certs = new HashSet();
-        Iterator iter = certStores.iterator();
 
-        while (iter.hasNext())
-        {
-            Object obj = iter.next();
-
-            if (obj instanceof X509Store)
-            {
-                X509Store certStore = (X509Store)obj;
-                try
-                {
-                    certs.addAll(certStore.getMatches(certSelect));
-                }
-                catch (StoreException e)
-                {
-                    throw new AnnotatedException(
-                            "Problem while picking certificates from X.509 store.", e);
-                }
-            }
-        }
-        return certs;
-    }
 
     private static BigInteger getSerialNumber(
         Object cert)
@@ -646,7 +619,7 @@ class CertPathValidatorUtilities
         }
         else
         {
-            return ((X509AttributeCertificate)cert).getSerialNumber();
+            return null;
         }
     }
 

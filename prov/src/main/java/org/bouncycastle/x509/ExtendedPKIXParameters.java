@@ -399,7 +399,6 @@ public class ExtendedPKIXParameters
      *         target certificate or attribute certificate (or <code>null</code>)
      * @see #setTargetConstraints
      * @see X509CertStoreSelector
-     * @see X509AttributeCertStoreSelector
      */
     public Selector getTargetConstraints()
     {
@@ -430,7 +429,6 @@ public class ExtendedPKIXParameters
      *            <code>null</code>)
      * @see #getTargetConstraints
      * @see X509CertStoreSelector
-     * @see X509AttributeCertStoreSelector
      */
     public void setTargetConstraints(Selector selector)
     {
@@ -614,47 +612,5 @@ public class ExtendedPKIXParameters
         this.prohibitedACAttributes.addAll(prohibitedACAttributes);
     }
 
-    /**
-     * Returns the attribute certificate checker. The returned set contains
-     * {@link PKIXAttrCertChecker}s and is immutable.
-     * 
-     * @return Returns the attribute certificate checker. Is never
-     *         <code>null</code>.
-     */
-    public Set getAttrCertCheckers()
-    {
-        return Collections.unmodifiableSet(attrCertCheckers);
-    }
-
-    /**
-     * Sets the attribute certificate checkers.
-     * <p>
-     * All elements in the <code>Set</code> must a {@link PKIXAttrCertChecker}.
-     * <p>
-     * The given set is cloned.
-     * 
-     * @param attrCertCheckers The attribute certificate checkers to set. Is
-     *            never <code>null</code>.
-     * @throws ClassCastException if an element of <code>attrCertCheckers</code>
-     *             is not a <code>PKIXAttrCertChecker</code>.
-     */
-    public void setAttrCertCheckers(Set attrCertCheckers)
-    {
-        if (attrCertCheckers == null)
-        {
-            this.attrCertCheckers.clear();
-            return;
-        }
-        for (Iterator it = attrCertCheckers.iterator(); it.hasNext();)
-        {
-            if (!(it.next() instanceof PKIXAttrCertChecker))
-            {
-                throw new ClassCastException("All elements of set must be "
-                    + "of type " + PKIXAttrCertChecker.class.getName() + ".");
-            }
-        }
-        this.attrCertCheckers.clear();
-        this.attrCertCheckers.addAll(attrCertCheckers);
-    }
 
 }

@@ -117,7 +117,7 @@ public class CCMBlockCipher
 
     public String getAlgorithmName()
     {
-        return cipher.getAlgorithmName() + "/CCM";
+        return cipher.getAlgorithmNameBlock() + "/CCM";
     }
 
     public void processAADByte(byte in)
@@ -163,7 +163,7 @@ public class CCMBlockCipher
 
     public void reset()
     {
-        cipher.reset();
+        cipher.resetBlock();
         associatedText.reset();
         data.reset();
     }
@@ -282,7 +282,7 @@ public class CCMBlockCipher
         System.arraycopy(nonce, 0, iv, 1, nonce.length);
 
         BlockCipher ctrCipher = SICBlockCipher.newInstance(cipher);
-        ctrCipher.init(forEncryption, new ParametersWithIV(keyParam, iv));
+        ctrCipher.initBlock(forEncryption, new ParametersWithIV(keyParam, iv));
 
         int outputLen;
         int inIndex = inOff;

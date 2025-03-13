@@ -95,7 +95,7 @@ public class CMac implements Mac
 
     public String getAlgorithmName()
     {
-        return cipher.getAlgorithmName();
+        return cipher.getAlgorithmNameBlock();
     }
 
     private static int shiftLeft(byte[] block, byte[] output)
@@ -182,7 +182,7 @@ public class CMac implements Mac
     {
         validate(params);
 
-        cipher.init(true, params);
+        cipher.initBlock(true, params);
 
         //initializes the L, Lu, Lu2 numbers
         byte[] L = new byte[ZEROES.length];
@@ -303,6 +303,6 @@ public class CMac implements Mac
         /*
          * reset the underlying cipher.
          */
-        cipher.reset();
+        cipher.resetBlock();
     }
 }

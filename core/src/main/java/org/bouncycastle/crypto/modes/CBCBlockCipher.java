@@ -69,7 +69,7 @@ public class CBCBlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             encrypting,
         CipherParameters    params)
         throws IllegalArgumentException
@@ -97,12 +97,12 @@ public class CBCBlockCipher
             Arrays.fill(IV, (byte)0);
         }
 
-        reset();
+        resetBlock();
 
         // if null it's an IV changed only (key is to be reused).
         if (params != null)
         {
-            cipher.init(encrypting, params);
+            cipher.initBlock(encrypting, params);
         }
         else if (oldEncrypting != encrypting)
         {
@@ -115,9 +115,9 @@ public class CBCBlockCipher
      *
      * @return the name of the underlying algorithm followed by "/CBC".
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/CBC";
+        return cipher.getAlgorithmNameBlock() + "/CBC";
     }
 
     /**
@@ -157,12 +157,12 @@ public class CBCBlockCipher
      * reset the chaining vector back to the IV and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
         System.arraycopy(IV, 0, cbcV, 0, IV.length);
         Arrays.fill(cbcNextV, (byte)0);
 
-        cipher.reset();
+        cipher.resetBlock();
     }
 
     /**

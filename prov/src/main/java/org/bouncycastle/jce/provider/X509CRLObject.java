@@ -140,7 +140,7 @@ public class X509CRLObject
         return false;
     }
 
-    private Set getExtensionOIDs(boolean critical)
+    private Set<String> getExtensionOIDs(boolean critical)
     {
         if (this.getVersion() == 2)
         {
@@ -148,7 +148,7 @@ public class X509CRLObject
 
             if (extensions != null)
             {
-                Set set = new HashSet();
+                Set<String> set = new HashSet<String>();
                 Enumeration e = extensions.oids();
 
                 while (e.hasMoreElements())
@@ -169,12 +169,12 @@ public class X509CRLObject
         return null;
     }
 
-    public Set getCriticalExtensionOIDs()
+    public Set<String> getCriticalExtensionOIDs()
     {
         return getExtensionOIDs(true);
     }
 
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return getExtensionOIDs(false);
     }
@@ -303,9 +303,9 @@ public class X509CRLObject
         return null == nextUpdate ? null : nextUpdate.getDate();
     }
 
-    private Set loadCRLEntries()
+    private Set<X509CRLEntryObject> loadCRLEntries()
     {
-        Set entrySet = new HashSet();
+        Set<X509CRLEntryObject> entrySet = new HashSet<X509CRLEntryObject>();
         Enumeration certs = c.getRevokedCertificateEnumeration();
 
         X500Name previousCertificateIssuer = null; // the issuer
@@ -356,9 +356,9 @@ public class X509CRLObject
         return null;
     }
 
-    public Set getRevokedCertificates()
+    public Set<X509CRLEntry> getRevokedCertificates()
     {
-        Set entrySet = loadCRLEntries();
+        Set<X509CRLEntryObject> entrySet = loadCRLEntries();
 
         if (!entrySet.isEmpty())
         {

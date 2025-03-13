@@ -36,7 +36,7 @@ public class BlockCipherVectorTest
 
     public String getName()
     {
-        return engine.getAlgorithmName() + " Vector Test " + id;
+        return engine.getAlgorithmNameBlock() + " Vector Test " + id;
     }
 
     public void performTest()

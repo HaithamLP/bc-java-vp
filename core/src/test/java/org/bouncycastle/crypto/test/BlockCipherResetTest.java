@@ -112,10 +112,10 @@ public class BlockCipherResetTest
                            CipherParameters params)
         throws InvalidCipherTextException
     {
-        cipher1.init(true, params);
+        cipher1.initBlock(true, params);
 
         byte[] plaintext = new byte[cipher1.getBlockSize()];
-        byte[] ciphertext = new byte[(cipher1.getAlgorithmName().indexOf("PGPCFBwithIV")) > -1 ? 2 * cipher1.getBlockSize() + 2
+        byte[] ciphertext = new byte[(cipher1.getAlgorithmNameBlock().indexOf("PGPCFBwithIV")) > -1 ? 2 * cipher1.getBlockSize() + 2
             : cipher1.getBlockSize()];
 
         // Establish baseline answer
@@ -125,7 +125,7 @@ public class BlockCipherResetTest
         checkReset(test, testCryptReset, cipher1, params, true, plaintext, ciphertext);
 
         // Test decryption resets with fresh instance
-        cipher2.init(false, params);
+        cipher2.initBlock(false, params);
         checkReset(test, testCryptReset, cipher2, params, false, ciphertext, plaintext);
     }
 
@@ -154,7 +154,7 @@ public class BlockCipherResetTest
 
         // Check init resets data
         cipher.processBlock(pretext, 0, output, 0);
-        cipher.init(encrypt, params);
+        cipher.initBlock(encrypt, params);
 
         try
         {
@@ -171,7 +171,7 @@ public class BlockCipherResetTest
 
         // Check reset resets data
         cipher.processBlock(pretext, 0, output, 0);
-        cipher.reset();
+        cipher.resetBlock();
 
         try
         {
@@ -191,7 +191,7 @@ public class BlockCipherResetTest
         throws InvalidCipherTextException
     {
         cipher1.processBlock(plaintext, 0, output, 0);
-        if ((cipher1.getAlgorithmName().indexOf("PGPCFBwithIV") > -1) && !encrypt)
+        if ((cipher1.getAlgorithmNameBlock().indexOf("PGPCFBwithIV") > -1) && !encrypt)
         {
             // Process past IV in first block
             cipher1.processBlock(plaintext, cipher1.getBlockSize(), output, 0);

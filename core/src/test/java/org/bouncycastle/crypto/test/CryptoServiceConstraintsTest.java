@@ -94,7 +94,7 @@ public class CryptoServiceConstraintsTest
 
         try
         {
-            eng.init(true, dKey);
+            eng.initBlock(true, dKey);
             fail("no exception");
         }
         catch (CryptoServiceConstraintsException e)
@@ -102,7 +102,7 @@ public class CryptoServiceConstraintsTest
             isEquals("service does not provide 128 bits of security only 80", e.getMessage());
         }
 
-        eng.init(false, dKey);     // this should work as we are decrypting
+        eng.initBlock(false, dKey);     // this should work as we are decrypting
 
         CryptoServicesRegistrar.setServicesConstraints(null);
     }

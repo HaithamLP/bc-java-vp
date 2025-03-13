@@ -44,11 +44,11 @@ public class Shacal2Engine
     {        
     }
     
-    public void reset()
+    public void resetBlock()
     {
     }
     
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Shacal2";
     }
@@ -58,7 +58,7 @@ public class Shacal2Engine
         return BLOCK_SIZE;
     }
 
-    public void init(boolean _forEncryption, CipherParameters  params)
+    public void initBlock(boolean _forEncryption, CipherParameters  params)
         throws IllegalArgumentException
     {
         if (!(params instanceof KeyParameter))
@@ -71,7 +71,7 @@ public class Shacal2Engine
         setKey(key);
         int keyBits = key.length * 8;
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                    this.getAlgorithmName(), keyBits < 256 ? keyBits : 256, params, Utils.getPurpose(forEncryption)));
+                    this.getAlgorithmNameBlock(), keyBits < 256 ? keyBits : 256, params, Utils.getPurpose(forEncryption)));
     }
 
     public void setKey(byte[] kb) 

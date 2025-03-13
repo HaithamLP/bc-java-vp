@@ -228,7 +228,7 @@ public final class TwofishEngine
 
     public TwofishEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 256));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 256));
 
         // calculate the MDS matrix
         int[] m1 = new int[2];
@@ -270,7 +270,7 @@ public final class TwofishEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             encrypting,
         CipherParameters    params)
     {
@@ -290,7 +290,7 @@ public final class TwofishEngine
                 throw new IllegalArgumentException("Key length not 128/192/256 bits.");
             }
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), keyBits, params, Utils.getPurpose(encrypting)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), keyBits, params, Utils.getPurpose(encrypting)));
 
             this.k64Cnt = this.workingKey.length / 8;
             setKey(this.workingKey);
@@ -301,7 +301,7 @@ public final class TwofishEngine
         throw new IllegalArgumentException("invalid parameter passed to Twofish init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Twofish";
     }
@@ -339,7 +339,7 @@ public final class TwofishEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
         if (this.workingKey != null)
         {

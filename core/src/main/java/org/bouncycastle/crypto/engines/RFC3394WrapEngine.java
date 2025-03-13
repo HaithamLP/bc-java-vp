@@ -89,7 +89,7 @@ public class RFC3394WrapEngine
 
     public String getAlgorithmName()
     {
-        return engine.getAlgorithmName();
+        return engine.getAlgorithmNameBlock();
     }
 
     public byte[] wrap(
@@ -113,7 +113,7 @@ public class RFC3394WrapEngine
             throw new DataLengthException("wrap data must be a multiple of 8 bytes");
         }
 
-        engine.init(wrapCipherMode, param);
+        engine.initBlock(wrapCipherMode, param);
 
         byte[] block = new byte[inLen + iv.length];
         System.arraycopy(iv, 0, block, 0, iv.length);
@@ -176,7 +176,7 @@ public class RFC3394WrapEngine
             throw new InvalidCipherTextException("unwrap data must be a multiple of 8 bytes");
         }
 
-        engine.init(!wrapCipherMode, param);
+        engine.initBlock(!wrapCipherMode, param);
 
         byte[] block = new byte[inLen - iv.length];
         byte[] a = new byte[iv.length];

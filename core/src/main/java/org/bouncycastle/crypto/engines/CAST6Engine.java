@@ -40,12 +40,12 @@ public final class CAST6Engine extends CAST5Engine
     {
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "CAST6";
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

@@ -113,7 +113,7 @@ abstract class X509CRLImpl
         return false;
     }
 
-    private Set getExtensionOIDs(boolean critical)
+    private Set<String> getExtensionOIDs(boolean critical)
     {
         if (this.getVersion() == 2)
         {
@@ -121,7 +121,7 @@ abstract class X509CRLImpl
 
             if (extensions != null)
             {
-                Set set = new HashSet();
+                Set<String> set = new HashSet<String>();
                 Enumeration e = extensions.oids();
 
                 while (e.hasMoreElements())
@@ -142,12 +142,12 @@ abstract class X509CRLImpl
         return null;
     }
 
-    public Set getCriticalExtensionOIDs()
+    public Set<String> getCriticalExtensionOIDs()
     {
         return getExtensionOIDs(true);
     }
 
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return getExtensionOIDs(false);
     }

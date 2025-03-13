@@ -126,7 +126,7 @@ public class X509CRLEntryHolder
      *
      * @return a set of critical extension OIDs.
      */
-    public Set getCriticalExtensionOIDs()
+    public Set<String> getCriticalExtensionOIDs()
     {
         return CertUtils.getCriticalExtensionOIDs(entry.getExtensions());
     }
@@ -137,7 +137,7 @@ public class X509CRLEntryHolder
      *
      * @return a set of non-critical extension OIDs.
      */
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return CertUtils.getNonCriticalExtensionOIDs(entry.getExtensions());
     }

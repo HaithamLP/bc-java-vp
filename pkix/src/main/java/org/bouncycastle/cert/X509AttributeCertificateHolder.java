@@ -239,7 +239,7 @@ public class X509AttributeCertificateHolder
      *
      * @return a list of extension OIDs.
      */
-    public List getExtensionOIDs()
+    public List<String> getExtensionOIDs()
     {
         return CertUtils.getExtensionOIDs(extensions);
     }
@@ -250,7 +250,7 @@ public class X509AttributeCertificateHolder
      *
      * @return a set of critical extension OIDs.
      */
-    public Set getCriticalExtensionOIDs()
+    public Set<String> getCriticalExtensionOIDs()
     {
         return CertUtils.getCriticalExtensionOIDs(extensions);
     }
@@ -261,7 +261,7 @@ public class X509AttributeCertificateHolder
      *
      * @return a set of non-critical extension OIDs.
      */
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return CertUtils.getNonCriticalExtensionOIDs(extensions);
     }

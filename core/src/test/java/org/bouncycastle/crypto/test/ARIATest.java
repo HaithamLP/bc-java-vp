@@ -68,8 +68,8 @@ public class ARIATest
             R.nextBytes(K);
 
             KeyParameter key = new KeyParameter(K);
-            ce.init(true, key);
-            cd.init(false, key);
+            ce.initBlock(true, key);
+            cd.initBlock(false, key);
 
             R.nextBytes(txt);
 
@@ -100,7 +100,7 @@ public class ARIATest
         isTrue("Unexpected plaintext length for " + name, blockSize == plaintext.length);
         isTrue("Unexpected ciphertext length for " + name, blockSize == ciphertext.length);
 
-        c.init(true, key);
+        c.initBlock(true, key);
 
         byte[] actual = new byte[blockSize];
         int num = c.processBlock(plaintext, 0, actual, 0);
@@ -108,7 +108,7 @@ public class ARIATest
         isTrue("Wrong length returned from processBlock() (encryption) for " + name, blockSize == num);
         isTrue("Incorrect ciphertext computed for " + name, Arrays.areEqual(ciphertext, actual));
 
-        c.init(false, key);
+        c.initBlock(false, key);
         num = c.processBlock(ciphertext, 0, actual, 0);
 
         isTrue("Wrong length returned from processBlock() (decryption) for " + name, blockSize == num);

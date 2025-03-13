@@ -226,7 +226,7 @@ public class TimeStampRequest
      * Returns a set of ASN1ObjectIdentifiers giving the non-critical extensions.
      * @return a set of ASN1ObjectIdentifiers.
      */
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         if (extensions == null)
         {

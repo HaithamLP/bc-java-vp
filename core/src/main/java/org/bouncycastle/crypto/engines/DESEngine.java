@@ -26,7 +26,7 @@ public class DESEngine
      */
     public DESEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 56));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 56));
     }
 
     /**
@@ -37,7 +37,7 @@ public class DESEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           encrypting,
         CipherParameters  params)
     {
@@ -52,7 +52,7 @@ public class DESEngine
             workingKey = generateWorkingKey(encrypting,
                                   ((KeyParameter)params).getKey());
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 56, params, Utils.getPurpose(forEncryption)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 56, params, Utils.getPurpose(forEncryption)));
 
             return;
         }
@@ -60,7 +60,7 @@ public class DESEngine
         throw new IllegalArgumentException("invalid parameter passed to DES init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "DES";
     }
@@ -96,7 +96,7 @@ public class DESEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

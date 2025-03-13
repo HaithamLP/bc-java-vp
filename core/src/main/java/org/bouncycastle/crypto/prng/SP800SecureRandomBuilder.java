@@ -230,7 +230,7 @@ public class SP800SecureRandomBuilder
             {
                 return "CTR-DRBG-3KEY-TDES";
             }
-            return "CTR-DRBG-" + blockCipher.getAlgorithmName() + keySizeInBits;
+            return "CTR-DRBG-" + blockCipher.getAlgorithmNameBlock() + keySizeInBits;
         }
 
         public SP80090DRBG get(EntropySource entropySource)

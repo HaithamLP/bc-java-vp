@@ -623,10 +623,10 @@ public class CamelliaEngine
 
     public CamelliaEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity()));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity()));
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         if (!(params instanceof KeyParameter))
@@ -637,11 +637,11 @@ public class CamelliaEngine
         setKey(forEncryption, ((KeyParameter)params).getKey());
         initialised = true;
         this.forEncryption = forEncryption;
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
 
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Camellia";
     }
@@ -683,7 +683,7 @@ public class CamelliaEngine
         }
     }
 
-    public void reset()
+    public void resetBlock()
     {
         // nothing
 

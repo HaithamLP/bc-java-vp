@@ -76,7 +76,7 @@ public class GMac implements Mac
 
     public String getAlgorithmName()
     {
-        return cipher.getUnderlyingCipher().getAlgorithmName() + "-GMAC";
+        return cipher.getUnderlyingCipher().getAlgorithmNameBlock() + "-GMAC";
     }
 
     public int getMacSize()

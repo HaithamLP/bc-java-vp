@@ -130,13 +130,13 @@ public class X509CRLEntryObject extends X509CRLEntry
         }
     }
 
-    private Set getExtensionOIDs(boolean critical)
+    private Set<String> getExtensionOIDs(boolean critical)
     {
         Extensions extensions = c.getExtensions();
 
         if (extensions != null)
         {
-            Set set = new HashSet();
+            Set<String> set = new HashSet<String>();
             Enumeration e = extensions.oids();
 
             while (e.hasMoreElements())
@@ -156,12 +156,12 @@ public class X509CRLEntryObject extends X509CRLEntry
         return null;
     }
 
-    public Set getCriticalExtensionOIDs()
+    public Set<String> getCriticalExtensionOIDs()
     {
         return getExtensionOIDs(true);
     }
 
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return getExtensionOIDs(false);
     }

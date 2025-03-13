@@ -43,7 +43,7 @@ public class DSTU7624Mac
     {
         if (params instanceof KeyParameter)
         {
-            engine.init(true, params);
+            engine.initBlock(true, params);
             initCalled = true;
             reset();
         }
@@ -147,7 +147,7 @@ public class DSTU7624Mac
         Arrays.fill(cTemp, (byte)0x00);
         Arrays.fill(kDelta, (byte)0x00);
         Arrays.fill(buf, (byte)0x00);
-        engine.reset();
+        engine.resetBlock();
         
         if (initCalled)
         {

@@ -33,7 +33,7 @@ public class NullTest
         
         BlockCipher engine = new NullEngine();
         
-        engine.init(true, null);
+        engine.initBlock(true, null);
         
         byte[] buf = new byte[1];
         

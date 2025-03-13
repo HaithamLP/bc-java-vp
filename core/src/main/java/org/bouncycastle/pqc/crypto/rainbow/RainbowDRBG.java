@@ -84,7 +84,7 @@ class RainbowDRBG
         {
             AESEngine cipher = new AESEngine();
 
-            cipher.init(true, new KeyParameter(key));
+            cipher.initBlock(true, new KeyParameter(key));
 
             for (int i = 0; i != ctr.length; i += 16)
             {

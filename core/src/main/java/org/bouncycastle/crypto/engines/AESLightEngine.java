@@ -322,7 +322,7 @@ public class AESLightEngine
      */
     public AESLightEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity()));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity()));
     }
 
     /**
@@ -333,7 +333,7 @@ public class AESLightEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           forEncryption,
         CipherParameters  params)
     {
@@ -342,7 +342,7 @@ public class AESLightEngine
             WorkingKey = generateWorkingKey(((KeyParameter)params).getKey(), forEncryption);
             this.forEncryption = forEncryption;
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
 
             return;
         }
@@ -350,7 +350,7 @@ public class AESLightEngine
         throw new IllegalArgumentException("invalid parameter passed to AES init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "AES";
     }
@@ -389,7 +389,7 @@ public class AESLightEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

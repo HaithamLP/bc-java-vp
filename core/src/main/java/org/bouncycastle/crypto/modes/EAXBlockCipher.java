@@ -69,7 +69,7 @@ public class EAXBlockCipher
 
     public String getAlgorithmName()
     {
-        return cipher.getUnderlyingCipher().getAlgorithmName() + "/EAX";
+        return cipher.getUnderlyingCipher().getAlgorithmNameBlock() + "/EAX";
     }
 
     public BlockCipher getUnderlyingCipher()
@@ -126,7 +126,7 @@ public class EAXBlockCipher
         mac.doFinal(nonceMac, 0);
 
         // Same BlockCipher underlies this and the mac, so reuse last key on cipher
-        cipher.init(true, new ParametersWithIV(keyParam, nonceMac));
+        cipher.initBlock(true, new ParametersWithIV(keyParam, nonceMac));
 
         reset();
     }
@@ -166,7 +166,7 @@ public class EAXBlockCipher
     private void reset(
         boolean clearMac)
     {
-        cipher.reset(); // TODO Redundant since the mac will reset it?
+        cipher.resetBlock(); // TODO Redundant since the mac will reset it?
         mac.reset();
 
         bufOff = 0;

@@ -487,7 +487,7 @@ public class CTRDRBGTest
             this.cipher = cipher;
         }
 
-        public void init(boolean forEncryption, CipherParameters params)
+        public void initBlock(boolean forEncryption, CipherParameters params)
             throws IllegalArgumentException
         {
             byte[] k = Arrays.clone(((KeyParameter)params).getKey());
@@ -499,12 +499,12 @@ public class CTRDRBGTest
                 fail("key not odd parity");
             }
 
-            cipher.init(forEncryption, params);
+            cipher.initBlock(forEncryption, params);
         }
 
-        public String getAlgorithmName()
+        public String getAlgorithmNameBlock()
         {
-            return cipher.getAlgorithmName();
+            return cipher.getAlgorithmNameBlock();
         }
 
         public int getBlockSize()
@@ -518,9 +518,9 @@ public class CTRDRBGTest
             return cipher.processBlock(in, inOff, out, outOff);
         }
 
-        public void reset()
+        public void resetBlock()
         {
-            cipher.reset();
+            cipher.resetBlock();
         }
     }
 

@@ -45,7 +45,7 @@ public class ThreefishReferenceEngine
 
     private long kw[];
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         if (params instanceof TweakableBlockCipherParameters)
@@ -136,7 +136,7 @@ public class ThreefishReferenceEngine
         bytes[index++] = (byte)(word >> 56);
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Threefish";
     }
@@ -389,7 +389,7 @@ public class ThreefishReferenceEngine
         return block;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

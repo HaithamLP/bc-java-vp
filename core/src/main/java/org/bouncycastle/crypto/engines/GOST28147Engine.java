@@ -163,7 +163,7 @@ public class GOST28147Engine
     public GOST28147Engine()
     {
         // based on 2012 cryptanolysis results.
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 178));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 178));
     }
 
     /**
@@ -174,7 +174,7 @@ public class GOST28147Engine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           forEncryption,
         CipherParameters  params)
     {
@@ -211,10 +211,10 @@ public class GOST28147Engine
            throw new IllegalArgumentException("invalid parameter passed to GOST28147 init - " + params.getClass().getName());
         }
 
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 178, params, Utils.getPurpose(forEncryption)));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 178, params, Utils.getPurpose(forEncryption)));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "GOST28147";
     }
@@ -250,7 +250,7 @@ public class GOST28147Engine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

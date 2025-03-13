@@ -154,7 +154,7 @@ public class Poly1305
             kBytes = new byte[BLOCK_SIZE];
             kOff = 0;
 
-            cipher.init(true, new KeyParameter(key, BLOCK_SIZE, BLOCK_SIZE));
+            cipher.initBlock(true, new KeyParameter(key, BLOCK_SIZE, BLOCK_SIZE));
             cipher.processBlock(nonce, 0, kBytes, 0);
         }
 
@@ -166,7 +166,7 @@ public class Poly1305
 
     public String getAlgorithmName()
     {
-        return cipher == null ? "Poly1305" : "Poly1305-" + cipher.getAlgorithmName();
+        return cipher == null ? "Poly1305" : "Poly1305-" + cipher.getAlgorithmNameBlock();
     }
 
     public int getMacSize()

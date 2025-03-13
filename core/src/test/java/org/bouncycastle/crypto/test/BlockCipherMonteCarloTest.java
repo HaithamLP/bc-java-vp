@@ -39,7 +39,7 @@ public class BlockCipherMonteCarloTest
 
     public String getName()
     {
-        return engine.getAlgorithmName() + " Monte Carlo Test " + id;
+        return engine.getAlgorithmNameBlock() + " Monte Carlo Test " + id;
     }
 
     public void performTest()

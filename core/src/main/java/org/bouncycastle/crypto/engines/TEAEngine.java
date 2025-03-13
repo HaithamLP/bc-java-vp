@@ -35,7 +35,7 @@ public class TEAEngine
         _initialised = false;
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "TEA";
     }
@@ -53,7 +53,7 @@ public class TEAEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             forEncryption,
         CipherParameters    params)
     {
@@ -70,7 +70,7 @@ public class TEAEngine
         setKey(p.getKey());
 
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-            this.getAlgorithmName(), 128, params, Utils.getPurpose(forEncryption)));
+            this.getAlgorithmNameBlock(), 128, params, Utils.getPurpose(forEncryption)));
     }
 
     public int processBlock(
@@ -81,7 +81,7 @@ public class TEAEngine
     {
         if (!_initialised)
         {
-            throw new IllegalStateException(getAlgorithmName()+" not initialised");
+            throw new IllegalStateException(getAlgorithmNameBlock()+" not initialised");
         }
         
         if ((inOff + block_size) > in.length)
@@ -98,7 +98,7 @@ public class TEAEngine
                                     : decryptBlock(in, inOff, out, outOff);
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

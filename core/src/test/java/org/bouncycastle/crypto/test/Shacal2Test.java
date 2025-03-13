@@ -153,7 +153,7 @@ public class Shacal2Test
     {
         BlockCipher engine = new Shacal2Engine();
 
-        engine.init(true, new KeyParameter(key));
+        engine.initBlock(true, new KeyParameter(key));
 
         byte[] buf = new byte[plain.length];
 

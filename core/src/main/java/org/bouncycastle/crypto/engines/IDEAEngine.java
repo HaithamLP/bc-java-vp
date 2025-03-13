@@ -33,7 +33,7 @@ public class IDEAEngine
      */
     public IDEAEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 128));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 128));
     }
 
     /**
@@ -44,7 +44,7 @@ public class IDEAEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           forEncryption,
         CipherParameters  params)
     {
@@ -55,14 +55,14 @@ public class IDEAEngine
                                   key);
             this.forEncryption = forEncryption;
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), key.length * 8, params, Utils.getPurpose(forEncryption)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), key.length * 8, params, Utils.getPurpose(forEncryption)));
             return;
         }
 
         throw new IllegalArgumentException("invalid parameter passed to IDEA init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "IDEA";
     }
@@ -98,7 +98,7 @@ public class IDEAEngine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

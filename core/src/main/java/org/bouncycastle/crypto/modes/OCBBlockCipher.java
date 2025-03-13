@@ -96,7 +96,7 @@ public class OCBBlockCipher
                 + BLOCK_SIZE);
         }
 
-        if (!hashCipher.getAlgorithmName().equals(mainCipher.getAlgorithmName()))
+        if (!hashCipher.getAlgorithmNameBlock().equals(mainCipher.getAlgorithmNameBlock()))
         {
             throw new IllegalArgumentException(
                 "'hashCipher' and 'mainCipher' must be the same algorithm");
@@ -113,7 +113,7 @@ public class OCBBlockCipher
 
     public String getAlgorithmName()
     {
-        return mainCipher.getAlgorithmName() + "/OCB";
+        return mainCipher.getAlgorithmNameBlock() + "/OCB";
     }
 
     public void init(boolean forEncryption, CipherParameters parameters)
@@ -176,8 +176,8 @@ public class OCBBlockCipher
         if (keyParameter != null)
         {
             // hashCipher always used in forward mode
-            hashCipher.init(true, keyParameter);
-            mainCipher.init(forEncryption, keyParameter);
+            hashCipher.initBlock(true, keyParameter);
+            mainCipher.initBlock(forEncryption, keyParameter);
             KtopInput = null;
         }
         else if (oldForEncryption != forEncryption)
@@ -512,8 +512,8 @@ public class OCBBlockCipher
 
     protected void reset(boolean clearMac)
     {
-        hashCipher.reset();
-        mainCipher.reset();
+        hashCipher.resetBlock();
+        mainCipher.resetBlock();
 
         clear(hashBlock);
         clear(mainBlock);

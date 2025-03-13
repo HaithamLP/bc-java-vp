@@ -1616,7 +1616,7 @@ public class CertTest
 
         cert.verify(cert.getPublicKey());
 
-        Set dummySet = cert.getNonCriticalExtensionOIDs();
+        Set<String> dummySet = cert.getNonCriticalExtensionOIDs();
         if (dummySet != null)
         {
             fail("non-critical oid set should be null");

@@ -174,7 +174,7 @@ public class SM4Engine
         return (X[3] ^ T(X[0] ^ X[1] ^ X[2] ^ rk));
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         if (params instanceof KeyParameter)
@@ -194,10 +194,10 @@ public class SM4Engine
         }
 
         CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-            this.getAlgorithmName(), 128, params, Utils.getPurpose(forEncryption)));
+            this.getAlgorithmNameBlock(), 128, params, Utils.getPurpose(forEncryption)));
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "SM4";
     }
@@ -248,7 +248,7 @@ public class SM4Engine
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 }

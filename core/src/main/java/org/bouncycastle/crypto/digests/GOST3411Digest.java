@@ -48,7 +48,7 @@ public class GOST3411Digest
         CryptoServicesRegistrar.checkConstraints(cryptoServiceProperties());
 
         sBox = GOST28147Engine.getSBox("D-A");
-        cipher.init(true, new ParametersWithSBox(null, sBox));
+        cipher.initBlock(true, new ParametersWithSBox(null, sBox));
 
         reset();
     }
@@ -73,7 +73,7 @@ public class GOST3411Digest
         CryptoServicesRegistrar.checkConstraints(cryptoServiceProperties());
 
         sBox = Arrays.clone(sBoxParam);
-        cipher.init(true, new ParametersWithSBox(null, sBox));
+        cipher.initBlock(true, new ParametersWithSBox(null, sBox));
 
         reset();
     }
@@ -176,7 +176,7 @@ public class GOST3411Digest
     //Encrypt function, ECB mode
     private void E(byte[] key, byte[] s, int sOff, byte[] in, int inOff)
     {
-        cipher.init(true, new KeyParameter(key));
+        cipher.initBlock(true, new KeyParameter(key));
         
         cipher.processBlock(in, inOff, s, sOff);
     }
@@ -372,7 +372,7 @@ public class GOST3411Digest
         GOST3411Digest t = (GOST3411Digest)other;
 
         this.sBox = t.sBox;
-        cipher.init(true, new ParametersWithSBox(null, sBox));
+        cipher.initBlock(true, new ParametersWithSBox(null, sBox));
 
         reset();
 

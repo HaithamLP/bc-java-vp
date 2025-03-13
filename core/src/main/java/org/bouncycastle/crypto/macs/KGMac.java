@@ -76,7 +76,7 @@ public class KGMac
 
     public String getAlgorithmName()
     {
-        return cipher.getUnderlyingCipher().getAlgorithmName() + "-KGMAC";
+        return cipher.getUnderlyingCipher().getAlgorithmNameBlock() + "-KGMAC";
     }
 
     public int getMacSize()

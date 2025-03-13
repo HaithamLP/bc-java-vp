@@ -72,13 +72,13 @@ public class PaddedBufferedBlockCipher
 
             padding.init(p.getRandom());
 
-            cipher.init(forEncryption, p.getParameters());
+            cipher.initBlock(forEncryption, p.getParameters());
         }
         else
         {
             padding.init(null);
 
-            cipher.init(forEncryption, params);
+            cipher.initBlock(forEncryption, params);
         }
     }
 

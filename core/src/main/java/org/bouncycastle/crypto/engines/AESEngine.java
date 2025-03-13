@@ -437,7 +437,7 @@ private static final int[] Tinv0 =
      */
     public AESEngine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 256));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 256));
     }
 
     /**
@@ -448,7 +448,7 @@ private static final int[] Tinv0 =
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           forEncryption,
         CipherParameters  params)
     {
@@ -465,7 +465,7 @@ private static final int[] Tinv0 =
                 s = Arrays.clone(Si);
             }
 
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, Utils.getPurpose(forEncryption)));
 
             return;
         }
@@ -473,7 +473,7 @@ private static final int[] Tinv0 =
         throw new IllegalArgumentException("invalid parameter passed to AES init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "AES";
     }
@@ -512,7 +512,7 @@ private static final int[] Tinv0 =
         return BLOCK_SIZE;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

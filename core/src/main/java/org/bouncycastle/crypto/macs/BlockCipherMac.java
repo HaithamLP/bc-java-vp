@@ -61,7 +61,7 @@ public class BlockCipherMac
 
     public String getAlgorithmName()
     {
-        return cipher.getAlgorithmName();
+        return cipher.getAlgorithmNameBlock();
     }
 
     public void init(
@@ -69,7 +69,7 @@ public class BlockCipherMac
     {
         reset();
 
-        cipher.init(true, params);
+        cipher.initBlock(true, params);
     }
 
     public int getMacSize()
@@ -169,6 +169,6 @@ public class BlockCipherMac
         /*
          * reset the underlying cipher.
          */
-        cipher.reset();
+        cipher.resetBlock();
     }
 }

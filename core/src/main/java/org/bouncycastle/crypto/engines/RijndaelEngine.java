@@ -558,7 +558,7 @@ public class RijndaelEngine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean           forEncryption,
         CipherParameters  params)
     {
@@ -567,14 +567,14 @@ public class RijndaelEngine
             byte[] key = ((KeyParameter)params).getKey();
             workingKey = generateWorkingKey(key);
             this.forEncryption = forEncryption;
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), key.length * 8, params, Utils.getPurpose(forEncryption)));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), key.length * 8, params, Utils.getPurpose(forEncryption)));
             return;
         }
 
         throw new IllegalArgumentException("invalid parameter passed to Rijndael init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "Rijndael";
     }
@@ -621,7 +621,7 @@ public class RijndaelEngine
         return BC / 2;
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

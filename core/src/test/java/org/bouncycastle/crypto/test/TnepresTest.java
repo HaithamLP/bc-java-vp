@@ -118,7 +118,7 @@ public class TnepresTest
             }
             System.arraycopy(ct, 0, pt, 0, 16);
 
-            c.init(true, new KeyParameter(key));
+            c.initBlock(true, new KeyParameter(key));
 
             c.processBlock(iv, 0, ct, 0);
 

@@ -94,7 +94,7 @@ public class CryptoProWrapEngine
 
             GCFBBlockCipher c = new GCFBBlockCipher(new GOST28147Engine());
 
-            c.init(true, new ParametersWithIV(new ParametersWithSBox(new KeyParameter(K), sBox), s));
+            c.initBlock(true, new ParametersWithIV(new ParametersWithSBox(new KeyParameter(K), sBox), s));
 
             c.processBlock(K, 0, K, 0);
             c.processBlock(K, 8, K, 8);

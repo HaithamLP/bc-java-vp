@@ -59,7 +59,7 @@ public class BlowfishTest
 
         try
         {
-            blowfish.init(true, new KeyParameter(new byte[1]));
+            blowfish.initBlock(true, new KeyParameter(new byte[1]));
             fail("no exception");
         }
         catch (IllegalArgumentException e)
@@ -69,7 +69,7 @@ public class BlowfishTest
 
         try
         {
-            blowfish.init(true, new KeyParameter(new byte[59]));
+            blowfish.initBlock(true, new KeyParameter(new byte[59]));
             fail("no exception");
         }
         catch (IllegalArgumentException e)

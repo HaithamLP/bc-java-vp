@@ -316,7 +316,7 @@ public class CAST5Engine
 
     public CAST5Engine()
     {
-        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), 128));
+        CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), 128));
     }
 
     /**
@@ -327,7 +327,7 @@ public class CAST5Engine
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             encrypting,
         CipherParameters    params)
     {
@@ -337,15 +337,15 @@ public class CAST5Engine
             _workingKey = ((KeyParameter)params).getKey();
 
             setKey(_workingKey);
-            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmName(), bitsOfSecurity(), params, getPurpose()));
+            CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(getAlgorithmNameBlock(), bitsOfSecurity(), params, getPurpose()));
 
             return;
         }
 
-        throw new IllegalArgumentException("Invalid parameter passed to "+getAlgorithmName()+" init - " + params.getClass().getName());
+        throw new IllegalArgumentException("Invalid parameter passed to "+ getAlgorithmNameBlock()+" init - " + params.getClass().getName());
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "CAST5";
     }
@@ -358,7 +358,7 @@ public class CAST5Engine
     {
         if (_workingKey == null)
         {
-            throw new IllegalStateException(getAlgorithmName()+" not initialised");
+            throw new IllegalStateException(getAlgorithmNameBlock()+" not initialised");
         }
 
         int blockSize = getBlockSize();
@@ -382,7 +382,7 @@ public class CAST5Engine
         }
     }
 
-    public void reset()
+    public void resetBlock()
     {
     }
 

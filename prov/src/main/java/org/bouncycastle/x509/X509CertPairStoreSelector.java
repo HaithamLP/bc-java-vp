@@ -9,7 +9,6 @@ import org.bouncycastle.util.Selector;
  * {@link org.bouncycastle.x509.X509CertStoreSelector}s which must be both
  * matched.
  * 
- * @see org.bouncycastle.x509.X509AttributeCertificate
  * @see org.bouncycastle.x509.X509Store
  */
 public class X509CertPairStoreSelector implements Selector

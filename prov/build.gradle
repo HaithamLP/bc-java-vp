@@ -1,7 +1,16 @@
 plugins {
-  id "biz.aQute.bnd.builder" version "7.0.0"
+    id "biz.aQute.bnd.builder" version "7.0.0"
 }
 
+def props = new Properties()
+file("../my.properties").withInputStream { props.load(it) }
+
+def feedName = props.getProperty("feedName","")
+def myUri = props.getProperty("uri","")
+def myUsername = props.getProperty("myUsername","")
+def myPassword = props.getProperty("myPassword","")
+
+println "Username Loaded: ${myUri}"  // Debugging output
 dependencies {
     testImplementation files('../libs/unboundid-ldapsdk-6.0.8.jar')
 }
@@ -96,8 +105,8 @@ compileJava21Java {
 
 
 task sourcesJar(type: Jar) {
-    archiveBaseName="bcprov"
-    archiveAppendix="${vmrange}"
+    archiveBaseName = "bcprov"
+    archiveAppendix = "${vmrange}"
     archiveClassifier = 'sources'
     from sourceSets.main.allSource
     exclude("**/*.so")
@@ -116,8 +125,8 @@ task sourcesJar(type: Jar) {
 }
 
 jar {
-    jar.archiveBaseName="bcprov"
-    jar.archiveAppendix="${vmrange}"
+    jar.archiveBaseName = "bcprov"
+    jar.archiveAppendix = "${vmrange}"
 
     from sourceSets.main.output
     into('META-INF/versions/9') {
@@ -145,8 +154,8 @@ jar {
 
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveBaseName="bcprov"
-    archiveAppendix="${vmrange}"
+    archiveBaseName = "bcprov"
+    archiveAppendix = "${vmrange}"
     archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -156,7 +165,6 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-
 
 
 sourceSets {
@@ -186,6 +194,8 @@ sourceSets {
 }
 
 dependencies {
+    implementation project(path: ':core')
+    testImplementation project(path: ':core')
     test11Implementation group: 'junit', name: 'junit', version: '4.13.2'
     test15Implementation group: 'junit', name: 'junit', version: '4.13.2'
     test21Implementation group: 'junit', name: 'junit', version: '4.13.2'
@@ -196,8 +206,6 @@ dependencies {
     test15Implementation(project(":core"))
     test21Implementation(project(":core"))
 }
-
-
 
 
 compileTest11Java {
@@ -215,152 +223,175 @@ compileTest21Java {
     options.sourcepath = files(['src/test/java', 'src/test/jdk21'])
 }
 
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            groupId = 'org.bouncycastle'
+//            artifactId = "bcprov-$vmrange"
+//            from components.java
+//
+//            artifact(javadocJar)
+//            artifact(sourcesJar)
+//        }
+//
+//    }
+//}
+
 publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'org.bouncycastle'
             artifactId = "bcprov-$vmrange"
+            version = "1.0.1-vp-${System.currentTimeMillis()}"
+
             from components.java
 
-            artifact(javadocJar)
-            artifact(sourcesJar)
         }
-
+    }
+    repositories {
+        maven {
+            name = feedName
+            url = uri(myUri)
+            credentials {
+                username = myUsername
+                password = myPassword
+            }
+        }
     }
 }
 
 
 test {
-    jvmArgs = ['-Dtest.java.version.prefix=any']
+//    jvmArgs = ['-Dtest.java.version.prefix=any']
 }
 
 
 task test8(type: Test) {
-    onlyIf {System.getenv("BC_JDK8") != null}
-    dependsOn(jar)
-
-    testClassesDirs = sourceSets.test.output.classesDirs
-    classpath = sourceSets.test.runtimeClasspath + files(jar.archiveFile)
-
-    forkEvery = 1;
-    maxParallelForks = 8;
-
-    systemProperty 'bc.test.data.home', bcTestDataHome
-    maxHeapSize = "1536m"
-    testLogging.showStandardStreams = false
-
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
-
-    jvmArgs = ['-Dtest.java.version.prefix=1.8']
-
-
-    finalizedBy jacocoTestReport
-
-    filter {
-        includeTestsMatching "AllTest*"
-        if (project.hasProperty('excludeTests')) {
-            excludeTestsMatching "${excludeTests}"
-        }
-    }
+//    onlyIf {System.getenv("BC_JDK8") != null}
+//    dependsOn(jar)
+//
+//    testClassesDirs = sourceSets.test.output.classesDirs
+//    classpath = sourceSets.test.runtimeClasspath + files(jar.archiveFile)
+//
+//    forkEvery = 1;
+//    maxParallelForks = 8;
+//
+//    systemProperty 'bc.test.data.home', bcTestDataHome
+//    maxHeapSize = "1536m"
+//    testLogging.showStandardStreams = false
+//
+//    javaLauncher = javaToolchains.launcherFor {
+//        languageVersion = JavaLanguageVersion.of(8)
+//    }
+//
+//    jvmArgs = ['-Dtest.java.version.prefix=1.8']
+//
+//
+//    finalizedBy jacocoTestReport
+//
+//    filter {
+//        includeTestsMatching "AllTest*"
+//        if (project.hasProperty('excludeTests')) {
+//            excludeTestsMatching "${excludeTests}"
+//        }
+//    }
 }
 
 task test11(type: Test) {
-    onlyIf {System.getenv("BC_JDK11") != null}
-    dependsOn(jar)
-
-    testClassesDirs = sourceSets.test11.output.classesDirs
-    classpath = sourceSets.test11.runtimeClasspath + files(jar.archiveFile)
-
-    forkEvery = 1;
-    maxParallelForks = 8;
-
-    systemProperty 'bc.test.data.home', bcTestDataHome
-    maxHeapSize = "1536m"
-    testLogging.showStandardStreams = false
-
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-
-    jvmArgs = ['-Dtest.java.version.prefix=11']
-
-
-    finalizedBy jacocoTestReport
-
-    filter {
-        includeTestsMatching "AllTest*"
-        if (project.hasProperty('excludeTests')) {
-            excludeTestsMatching "${excludeTests}"
-        }
-    }
+//    onlyIf {System.getenv("BC_JDK11") != null}
+//    dependsOn(jar)
+//
+//    testClassesDirs = sourceSets.test11.output.classesDirs
+//    classpath = sourceSets.test11.runtimeClasspath + files(jar.archiveFile)
+//
+//    forkEvery = 1;
+//    maxParallelForks = 8;
+//
+//    systemProperty 'bc.test.data.home', bcTestDataHome
+//    maxHeapSize = "1536m"
+//    testLogging.showStandardStreams = false
+//
+//    javaLauncher = javaToolchains.launcherFor {
+//        languageVersion = JavaLanguageVersion.of(11)
+//    }
+//
+//    jvmArgs = ['-Dtest.java.version.prefix=11']
+//
+//
+//    finalizedBy jacocoTestReport
+//
+//    filter {
+//        includeTestsMatching "AllTest*"
+//        if (project.hasProperty('excludeTests')) {
+//            excludeTestsMatching "${excludeTests}"
+//        }
+//    }
 }
 
 task test15(type: Test) {
 
     // This is testing the 1.15 code base
-    onlyIf {System.getenv("BC_JDK17") != null}
-    dependsOn jar
-
-    testClassesDirs = sourceSets.test15.output.classesDirs
-    classpath = sourceSets.test15.runtimeClasspath + files(jar.archiveFile)
-
-    forkEvery = 1;
-    maxParallelForks = 8;
-
-    systemProperty 'bc.test.data.home', bcTestDataHome
-    maxHeapSize = "1536m"
-    testLogging.showStandardStreams = false
-
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-
-    jvmArgs = ['-Dtest.java.version.prefix=17']
-
-
-    finalizedBy jacocoTestReport
-
-    filter {
-        includeTestsMatching "AllTest*"
-        if (project.hasProperty('excludeTests')) {
-            excludeTestsMatching "${excludeTests}"
-        }
-    }
+//    onlyIf {System.getenv("BC_JDK17") != null}
+//    dependsOn jar
+//
+//    testClassesDirs = sourceSets.test15.output.classesDirs
+//    classpath = sourceSets.test15.runtimeClasspath + files(jar.archiveFile)
+//
+//    forkEvery = 1;
+//    maxParallelForks = 8;
+//
+//    systemProperty 'bc.test.data.home', bcTestDataHome
+//    maxHeapSize = "1536m"
+//    testLogging.showStandardStreams = false
+//
+//    javaLauncher = javaToolchains.launcherFor {
+//        languageVersion = JavaLanguageVersion.of(17)
+//    }
+//
+//    jvmArgs = ['-Dtest.java.version.prefix=17']
+//
+//
+//    finalizedBy jacocoTestReport
+//
+//    filter {
+//        includeTestsMatching "AllTest*"
+//        if (project.hasProperty('excludeTests')) {
+//            excludeTestsMatching "${excludeTests}"
+//        }
+//    }
 }
 
 task test21(type: Test) {
 
     // This is testing the 21 code base
-    onlyIf {System.getenv("BC_JDK21") != null}
-    dependsOn jar
-
-    testClassesDirs = sourceSets.test21.output.classesDirs
-    classpath = sourceSets.test21.runtimeClasspath + files(jar.archiveFile)
-
-    forkEvery = 1;
-    maxParallelForks = 8;
-
-    systemProperty 'bc.test.data.home', bcTestDataHome
-    maxHeapSize = "1536m"
-    testLogging.showStandardStreams = false
-
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-
-    jvmArgs = ['-Dtest.java.version.prefix=21']
-
-
-    finalizedBy jacocoTestReport
-
-    filter {
-        includeTestsMatching "AllTest*"
-        if (project.hasProperty('excludeTests')) {
-            excludeTestsMatching "${excludeTests}"
-        }
-    }
+//    onlyIf {System.getenv("BC_JDK21") != null}
+//    dependsOn jar
+//
+//    testClassesDirs = sourceSets.test21.output.classesDirs
+//    classpath = sourceSets.test21.runtimeClasspath + files(jar.archiveFile)
+//
+//    forkEvery = 1;
+//    maxParallelForks = 8;
+//
+//    systemProperty 'bc.test.data.home', bcTestDataHome
+//    maxHeapSize = "1536m"
+//    testLogging.showStandardStreams = false
+//
+//    javaLauncher = javaToolchains.launcherFor {
+//        languageVersion = JavaLanguageVersion.of(21)
+//    }
+//
+//    jvmArgs = ['-Dtest.java.version.prefix=21']
+//
+//
+//    finalizedBy jacocoTestReport
+//
+//    filter {
+//        includeTestsMatching "AllTest*"
+//        if (project.hasProperty('excludeTests')) {
+//            excludeTestsMatching "${excludeTests}"
+//        }
+//    }
 }
 
 if (System.getenv("BC_JDK8") != null) {

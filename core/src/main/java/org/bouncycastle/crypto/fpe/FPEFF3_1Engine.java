@@ -47,7 +47,7 @@ public class FPEFF3_1Engine
 
         this.fpeParameters = (FPEParameters)parameters;
 
-        baseCipher.init(!fpeParameters.isUsingInverseFunction(), fpeParameters.getKey().reverse());
+        baseCipher.initBlock(!fpeParameters.isUsingInverseFunction(), fpeParameters.getKey().reverse());
 
         if (fpeParameters.getTweak().length != 7)
         {

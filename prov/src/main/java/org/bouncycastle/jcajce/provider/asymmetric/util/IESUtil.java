@@ -16,18 +16,18 @@ public class IESUtil
         {
             BlockCipher underlyingCipher = iesBlockCipher.getUnderlyingCipher();
 
-            if (underlyingCipher.getAlgorithmName().equals("DES") ||
-                underlyingCipher.getAlgorithmName().equals("RC2") ||
-                underlyingCipher.getAlgorithmName().equals("RC5-32") ||
-                underlyingCipher.getAlgorithmName().equals("RC5-64"))
+            if (underlyingCipher.getAlgorithmNameBlock().equals("DES") ||
+                underlyingCipher.getAlgorithmNameBlock().equals("RC2") ||
+                underlyingCipher.getAlgorithmNameBlock().equals("RC5-32") ||
+                underlyingCipher.getAlgorithmNameBlock().equals("RC5-64"))
             {
                 return new IESParameterSpec(null, null, 64, 64, nonce);
             }
-            else if (underlyingCipher.getAlgorithmName().equals("SKIPJACK"))
+            else if (underlyingCipher.getAlgorithmNameBlock().equals("SKIPJACK"))
             {
                 return new IESParameterSpec(null, null, 80, 80, nonce);
             }
-            else if (underlyingCipher.getAlgorithmName().equals("GOST28147"))
+            else if (underlyingCipher.getAlgorithmNameBlock().equals("GOST28147"))
             {
                 return new IESParameterSpec(null, null, 256, 256, nonce);
             }

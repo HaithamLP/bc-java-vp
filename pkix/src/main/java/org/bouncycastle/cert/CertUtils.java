@@ -124,7 +124,7 @@ class CertUtils
         return Collections.unmodifiableSet(new HashSet(Arrays.asList(extensions.getCriticalExtensionOIDs())));
     }
 
-    static Set getNonCriticalExtensionOIDs(Extensions extensions)
+    static Set<String> getNonCriticalExtensionOIDs(Extensions extensions)
     {
         if (extensions == null)
         {
@@ -135,7 +135,7 @@ class CertUtils
         return Collections.unmodifiableSet(new HashSet(Arrays.asList(extensions.getNonCriticalExtensionOIDs())));
     }
 
-    static List getExtensionOIDs(Extensions extensions)
+    static List<String> getExtensionOIDs(Extensions extensions)
     {
         if (extensions == null)
         {

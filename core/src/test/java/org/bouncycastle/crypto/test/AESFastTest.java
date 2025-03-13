@@ -110,7 +110,7 @@ public class AESFastTest
 
         byte[] keyBytes = new byte[16];
         
-        _engine.init(true, new KeyParameter(keyBytes));
+        _engine.initBlock(true, new KeyParameter(keyBytes));
         
         //
         // init tests
@@ -119,7 +119,7 @@ public class AESFastTest
         {
             byte[]      dudKey = new byte[6];
             
-            _engine.init(true, new KeyParameter(dudKey));
+            _engine.initBlock(true, new KeyParameter(dudKey));
             
             fail("failed key length check");
         }
@@ -132,7 +132,7 @@ public class AESFastTest
         {
             byte[]      iv = new byte[16];
 
-            _engine.init(true, new ParametersWithIV(null, iv));
+            _engine.initBlock(true, new ParametersWithIV(null, iv));
             
             fail("failed parameter check");
         }

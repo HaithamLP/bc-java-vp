@@ -90,12 +90,12 @@ public class SingleResp
         return OCSPUtils.getExtensionOIDs(extensions);
     }
 
-    public Set getCriticalExtensionOIDs()
+    public Set<String> getCriticalExtensionOIDs()
     {
         return OCSPUtils.getCriticalExtensionOIDs(extensions);
     }
 
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return OCSPUtils.getNonCriticalExtensionOIDs(extensions);
     }

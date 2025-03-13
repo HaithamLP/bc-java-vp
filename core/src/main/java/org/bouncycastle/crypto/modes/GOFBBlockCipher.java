@@ -62,7 +62,7 @@ public class GOFBBlockCipher
      * @exception IllegalArgumentException if the params argument is
      * inappropriate.
      */
-    public void init(
+    public void initBlock(
         boolean             encrypting, //ignored by this CTR mode
         CipherParameters    params)
         throws IllegalArgumentException
@@ -90,22 +90,22 @@ public class GOFBBlockCipher
                 System.arraycopy(iv, 0, IV, 0, IV.length);
             }
 
-            reset();
+            resetBlock();
 
             // if params is null we reuse the current working key.
             if (ivParam.getParameters() != null)
             {
-                cipher.init(true, ivParam.getParameters());
+                cipher.initBlock(true, ivParam.getParameters());
             }
         }
         else
         {
-            reset();
+            resetBlock();
 
             // if params is null we reuse the current working key.
             if (params != null)
             {
-                cipher.init(true, params);
+                cipher.initBlock(true, params);
             }
         }
     }
@@ -116,9 +116,9 @@ public class GOFBBlockCipher
      * @return the name of the underlying algorithm followed by "/GCTR"
      * and the block size in bits
      */
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
-        return cipher.getAlgorithmName() + "/GCTR";
+        return cipher.getAlgorithmNameBlock() + "/GCTR";
     }
 
     /**
@@ -160,14 +160,14 @@ public class GOFBBlockCipher
      * reset the feedback vector back to the IV and reset the underlying
      * cipher.
      */
-    public void reset()
+    public void resetBlock()
     {
         firstStep = true;
         N3 = 0;
         N4 = 0;
         System.arraycopy(IV, 0, ofbV, 0, IV.length);
         byteCount = 0;
-        cipher.reset();
+        cipher.resetBlock();
     }
 
     //array of bytes to type int
@@ -231,5 +231,20 @@ public class GOFBBlockCipher
         }
 
         return rv;
+    }
+
+    @Override
+    public void init(boolean forEncryption, CipherParameters params) throws IllegalArgumentException {
+        initBlock(forEncryption, params);
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return getAlgorithmNameBlock();
+    }
+
+    @Override
+    public void reset() {
+        resetBlock();
     }
 }

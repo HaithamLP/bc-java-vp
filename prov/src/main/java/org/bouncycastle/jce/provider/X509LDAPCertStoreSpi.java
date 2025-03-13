@@ -160,7 +160,7 @@ public class X509LDAPCertStoreSpi
         return filterEncode(temp);
     }
 
-    public Collection engineGetCertificates(CertSelector selector)
+    public Collection<Certificate> engineGetCertificates(CertSelector selector)
         throws CertStoreException
     {
         if (!(selector instanceof X509CertSelector))
@@ -169,9 +169,9 @@ public class X509LDAPCertStoreSpi
         }
         X509CertSelector xselector = (X509CertSelector)selector;
 
-        Set certSet = new HashSet();
+        Set<Certificate> certSet = new HashSet<Certificate>();
 
-        Set set = getEndCertificates(xselector);
+        Set<Certificate> set = getEndCertificates(xselector);
         set.addAll(getCACertificates(xselector));
         set.addAll(getCrossCertificates(xselector));
 
@@ -348,7 +348,7 @@ public class X509LDAPCertStoreSpi
         return set;
     }
 
-    public Collection engineGetCRLs(CRLSelector selector)
+    public Collection<CRL> engineGetCRLs(CRLSelector selector)
         throws CertStoreException
     {
         String[] attrs = {params.getCertificateRevocationListAttribute()};
@@ -358,10 +358,10 @@ public class X509LDAPCertStoreSpi
         }
         X509CRLSelector xselector = (X509CRLSelector)selector;
 
-        Set crlSet = new HashSet();
+        Set<CRL> crlSet = new HashSet<CRL>();
 
         String attrName = params.getLdapCertificateRevocationListAttributeName();
-        Set set = new HashSet();
+        Set<CRL> set = new HashSet<CRL>();
 
         if (xselector.getIssuerNames() != null)
         {

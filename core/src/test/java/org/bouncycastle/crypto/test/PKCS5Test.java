@@ -114,7 +114,7 @@ public class PKCS5Test
 
         public String getName()
         {
-            return cipher.getUnderlyingCipher().getAlgorithmName() + " PKCS5S2 Test " + id;
+            return cipher.getUnderlyingCipher().getAlgorithmNameBlock() + " PKCS5S2 Test " + id;
         }
 
         public void performTest()

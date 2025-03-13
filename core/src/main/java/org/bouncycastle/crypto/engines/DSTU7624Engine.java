@@ -54,7 +54,7 @@ public class DSTU7624Engine
         internalState = new long[wordsInBlock];
     }
 
-    public void init(boolean forEncryption, CipherParameters params)
+    public void initBlock(boolean forEncryption, CipherParameters params)
         throws IllegalArgumentException
     {
         if (!(params instanceof KeyParameter))
@@ -84,17 +84,17 @@ public class DSTU7624Engine
         case 128:
             roundsAmount = ROUNDS_128;
             CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                this.getAlgorithmName(), 128, params, Utils.getPurpose(forEncryption)));
+                this.getAlgorithmNameBlock(), 128, params, Utils.getPurpose(forEncryption)));
             break;
         case 256:
             roundsAmount = ROUNDS_256;
             CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                this.getAlgorithmName(), 256, params, Utils.getPurpose(forEncryption)));
+                this.getAlgorithmNameBlock(), 256, params, Utils.getPurpose(forEncryption)));
             break;
         case 512:
             roundsAmount = ROUNDS_512;
             CryptoServicesRegistrar.checkConstraints(new DefaultServiceProperties(
-                this.getAlgorithmName(), 256, params, Utils.getPurpose(forEncryption)));
+                this.getAlgorithmNameBlock(), 256, params, Utils.getPurpose(forEncryption)));
             break;
         }
 
@@ -125,7 +125,7 @@ public class DSTU7624Engine
         workingKeyExpandOdd();
     }
 
-    public String getAlgorithmName()
+    public String getAlgorithmNameBlock()
     {
         return "DSTU7624";
     }
@@ -223,7 +223,7 @@ public class DSTU7624Engine
         return getBlockSize();
     }
 
-    public void reset()
+    public void resetBlock()
     {
         Arrays.fill(internalState, 0);
     }

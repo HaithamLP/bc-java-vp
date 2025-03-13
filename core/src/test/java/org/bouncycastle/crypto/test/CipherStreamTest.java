@@ -334,11 +334,11 @@ public class CipherStreamTest
     {
         if (cipher instanceof BufferedBlockCipher)
         {
-            return ((BufferedBlockCipher)cipher).getUnderlyingCipher().getAlgorithmName();
+            return ((BufferedBlockCipher)cipher).getUnderlyingCipher().getAlgorithmNameBlock();
         }
         else if (cipher instanceof AEADBlockCipher)
         {
-            return ((AEADBlockCipher)cipher).getUnderlyingCipher().getAlgorithmName();
+            return ((AEADBlockCipher)cipher).getUnderlyingCipher().getAlgorithmNameBlock();
         }
         else if (cipher instanceof StreamCipher)
         {

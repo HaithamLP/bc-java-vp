@@ -28,8 +28,8 @@ public class BigSkippingCipherTest
         CTRModeCipher skippingEngine = SICBlockCipher.newInstance(AESEngine.newInstance());
         Random random = new Random();
 
-        linearEngine.init(true, externalCounterParams);
-        skippingEngine.init(false, internalCounterParams);
+        linearEngine.initBlock(true, externalCounterParams);
+        skippingEngine.initBlock(false, internalCounterParams);
 
         testCipher(random, linearEngine, skippingEngine);
 
@@ -58,7 +58,7 @@ public class BigSkippingCipherTest
         byte[] linOut = new byte[512];
         byte[] skipOut = new byte[512];
 
-        linearEngine.init(true, internalCounterParams);
+        linearEngine.initBlock(true, internalCounterParams);
 
         linearEngine.processBytes(buf, 0, buf.length, linOut, 0);
         skippingEngine.processBytes(buf, 0, buf.length, skipOut, 0);

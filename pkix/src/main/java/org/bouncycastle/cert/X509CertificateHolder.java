@@ -162,7 +162,7 @@ public class X509CertificateHolder
      *
      * @return a set of non-critical extension OIDs.
      */
-    public Set getNonCriticalExtensionOIDs()
+    public Set<String> getNonCriticalExtensionOIDs()
     {
         return CertUtils.getNonCriticalExtensionOIDs(extensions);
     }
